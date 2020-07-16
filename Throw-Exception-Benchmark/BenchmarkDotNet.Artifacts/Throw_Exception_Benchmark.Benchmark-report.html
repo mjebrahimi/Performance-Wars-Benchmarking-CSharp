@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Throw_Exception_Benchmark.Benchmark-20200716-111130</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.18363.900 (1909/November2018Update/19H2)
+Intel Core i7-6700HQ CPU 2.60GHz (Skylake), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.100-preview.3.20216.6
+  [Host]     : .NET Core 5.0.0 (CoreCLR 5.0.20.21406, CoreFX 5.0.20.21406), X64 RyuJIT
+  Job-PSBXEW : .NET Core 5.0.0 (CoreCLR 5.0.20.21406, CoreFX 5.0.20.21406), X64 RyuJIT
+</code></pre>
+<pre><code>RunStrategy=Throughput  
+</code></pre>
+
+<table>
+<thead><tr><th>                    Method</th><th>  Mean</th><th>Error</th><th>StdDev</th><th>Ratio</th><th>RatioSD</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>&#39;With Long StackTrace Exception&#39;</td><td>29,522.01 ns</td><td>402.728 ns</td><td>336.296 ns</td><td>798.80</td><td>13.71</td><td>0.0916</td><td>-</td><td>-</td><td>320 B</td>
+</tr><tr><td>&#39;Without Throw Exception&#39;</td><td>36.97 ns</td><td>0.449 ns</td><td>0.420 ns</td><td>1.00</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr></tbody></table>
+</body>
+</html>

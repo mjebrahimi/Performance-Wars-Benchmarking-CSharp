@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "List-TrimExess-Benchmark", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reflection-NonReflection-Benchmark", "Reflection-NonReflection-Benchmark\Reflection-NonReflection-Benchmark.csproj", "{D14A80F8-56D8-4F8D-9800-A32970F2FC45}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Throw-Exception-Benchmark", "Throw-Exception-Benchmark\Throw-Exception-Benchmark.csproj", "{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,14 @@ Global
 		{D14A80F8-56D8-4F8D-9800-A32970F2FC45}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D14A80F8-56D8-4F8D-9800-A32970F2FC45}.Release|x64.ActiveCfg = Release|Any CPU
 		{D14A80F8-56D8-4F8D-9800-A32970F2FC45}.Release|x64.Build.0 = Release|Any CPU
+		{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}.Debug|x64.Build.0 = Debug|Any CPU
+		{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}.Release|x64.ActiveCfg = Release|Any CPU
+		{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
