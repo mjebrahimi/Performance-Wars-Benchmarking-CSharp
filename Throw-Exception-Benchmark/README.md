@@ -3,9 +3,9 @@
 A benchmark comparison between:
 
 - A normal flow operation
-- Above operation with a long stack trace exception (17 inner calls of methods - string length of stacktrace : 3,458 - size of stacktrace  : 768 bytes)
+- Above operation with a long stack trace exception *(17 inner calls of methods - string length of stacktrace : 3,458 - size of stacktrace  : 768 bytes)*
 
-### Result:
+### Results:
 
 - **In my test, throwing Exception was about 800 times slower than without exception.**
 
