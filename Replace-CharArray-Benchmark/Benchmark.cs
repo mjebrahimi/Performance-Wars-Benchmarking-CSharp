@@ -1,10 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Replace_CharArray_Benchmark
 {
@@ -13,34 +9,34 @@ namespace Replace_CharArray_Benchmark
     [KeepBenchmarkFiles(false)]
     public class Benchmark
     {
-        [Benchmark]
-        public void ReplaceString()
+        [Benchmark(Baseline = true)]
+        public void ToCharArray()
         {
-            UsingReplaceString("012345678901234567890123456789");
+            UsingToCharArray("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
         }
 
         [Benchmark]
-        public void ReplaceChar()
+        public void StringCreate()
         {
-            UsingReplaceChar("012345678901234567890123456789");
+            UsingStringCreate("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
         }
 
         [Benchmark]
         public void StringBuilder()
         {
-            UsingStringBuilder("012345678901234567890123456789");
+            UsingStringBuilder("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
         }
 
         [Benchmark]
-        public void CharArray()
+        public void ReplaceChar()
         {
-            UsingCharArray("012345678901234567890123456789");
+            UsingReplaceChar("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
         }
 
-        [Benchmark(Baseline = true)]
-        public void Span()
+        [Benchmark]
+        public void ReplaceString()
         {
-            UsingSpan("012345678901234567890123456789");
+            UsingReplaceString("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
         }
 
         private static string UsingReplaceString(string data)
@@ -82,174 +78,75 @@ namespace Replace_CharArray_Benchmark
             var strBuilder = new StringBuilder(data);
             for (var i = 0; i < strBuilder.Length; i++)
             {
-                switch (strBuilder[i])
+                strBuilder[i] = (strBuilder[i]) switch
                 {
-                    case '0':
-                        strBuilder[i] = '\u06F0';
-                        break;
-
-                    case '1':
-                        strBuilder[i] = '\u06F1';
-                        break;
-
-                    case '2':
-                        strBuilder[i] = '\u06F2';
-                        break;
-
-                    case '3':
-                        strBuilder[i] = '\u06F3';
-                        break;
-
-                    case '4':
-                        strBuilder[i] = '\u06F4';
-                        break;
-
-                    case '5':
-                        strBuilder[i] = '\u06F5';
-                        break;
-
-                    case '6':
-                        strBuilder[i] = '\u06F6';
-                        break;
-
-                    case '7':
-                        strBuilder[i] = '\u06F7';
-                        break;
-
-                    case '8':
-                        strBuilder[i] = '\u06F8';
-                        break;
-
-                    case '9':
-                        strBuilder[i] = '\u06F9';
-                        break;
-
-                    default:
-                        strBuilder[i] = strBuilder[i];
-                        break;
-                }
+                    '0' => '\u06F0',
+                    '1' => '\u06F1',
+                    '2' => '\u06F2',
+                    '3' => '\u06F3',
+                    '4' => '\u06F4',
+                    '5' => '\u06F5',
+                    '6' => '\u06F6',
+                    '7' => '\u06F7',
+                    '8' => '\u06F8',
+                    '9' => '\u06F9',
+                    char c => c,
+                };
             }
 
             return strBuilder.ToString();
         }
 
-        private static string UsingCharArray(string data)
+        private static string UsingStringCreate(string data)
         {
             if (string.IsNullOrWhiteSpace(data)) return string.Empty;
 
-            var letters = data.ToCharArray();
-            for (var i = 0; i < letters.Length; i++)
+            return string.Create(data.Length, data, (chars, context) =>
             {
-                switch (letters[i])
+                for (int i = 0; i < data.Length; i++)
                 {
-                    case '0':
-                        letters[i] = '\u06F0';
-                        break;
-
-                    case '1':
-                        letters[i] = '\u06F1';
-                        break;
-
-                    case '2':
-                        letters[i] = '\u06F2';
-                        break;
-
-                    case '3':
-                        letters[i] = '\u06F3';
-                        break;
-
-                    case '4':
-                        letters[i] = '\u06F4';
-                        break;
-
-                    case '5':
-                        letters[i] = '\u06F5';
-                        break;
-
-                    case '6':
-                    case '\u0666':
-                        letters[i] = '\u06F6';
-                        break;
-
-                    case '7':
-                        letters[i] = '\u06F7';
-                        break;
-
-                    case '8':
-                        letters[i] = '\u06F8';
-                        break;
-
-                    case '9':
-                        letters[i] = '\u06F9';
-                        break;
-
-                    default:
-                        letters[i] = letters[i];
-                        break;
+                    chars[i] = (data[i]) switch
+                    {
+                        '0' => '\u06F0',
+                        '1' => '\u06F1',
+                        '2' => '\u06F2',
+                        '3' => '\u06F3',
+                        '4' => '\u06F4',
+                        '5' => '\u06F5',
+                        '6' => '\u06F6',
+                        '7' => '\u06F7',
+                        '8' => '\u06F8',
+                        '9' => '\u06F9',
+                        _ => data[i],
+                    };
                 }
-            }
-
-            return new string(letters);
+            });
         }
 
-        private static string UsingSpan(string data)
+        private static string UsingToCharArray(string data)
         {
             if (string.IsNullOrWhiteSpace(data)) return string.Empty;
 
-            Span<char> span = stackalloc char[data.Length]; // DOES NOT heap allocate
-
-            for (int i = 0; i < data.Length; i++)
+            var chars = data.ToCharArray();
+            for (var i = 0; i < chars.Length; i++)
             {
-                switch (data[i])
+                chars[i] = (chars[i]) switch
                 {
-                    case '0':
-                        span[i] = '\u06F0';
-                        break;
-
-                    case '1':
-                        span[i] = '\u06F1';
-                        break;
-
-                    case '2':
-                        span[i] = '\u06F2';
-                        break;
-
-                    case '3':
-                        span[i] = '\u06F3';
-                        break;
-
-                    case '4':
-                        span[i] = '\u06F4';
-                        break;
-
-                    case '5':
-                        span[i] = '\u06F5';
-                        break;
-
-                    case '6':
-                    case '\u0666':
-                        span[i] = '\u06F6';
-                        break;
-
-                    case '7':
-                        span[i] = '\u06F7';
-                        break;
-
-                    case '8':
-                        span[i] = '\u06F8';
-                        break;
-
-                    case '9':
-                        span[i] = '\u06F9';
-                        break;
-
-                    default:
-                        span[i] = data[i];
-                        break;
-                }
+                    '0' => '\u06F0',
+                    '1' => '\u06F1',
+                    '2' => '\u06F2',
+                    '3' => '\u06F3',
+                    '4' => '\u06F4',
+                    '5' => '\u06F5',
+                    '6' => '\u06F6',
+                    '7' => '\u06F7',
+                    '8' => '\u06F8',
+                    '9' => '\u06F9',
+                    _ => chars[i],
+                };
             }
 
-            return new string(span);
+            return new string(chars);
         }
     }
 }
