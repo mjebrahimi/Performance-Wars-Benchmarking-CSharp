@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Replace_CharArray_Benchmark.Benchmark-20200718-104500</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.18363.959 (1909/November2018Update/19H2)
+Intel Core i7-6700HQ CPU 2.60GHz (Skylake), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.100-preview.3.20216.6
+  [Host]     : .NET Core 5.0.0 (CoreCLR 5.0.20.21406, CoreFX 5.0.20.21406), X64 RyuJIT
+  Job-UAQQXC : .NET Core 5.0.0 (CoreCLR 5.0.20.21406, CoreFX 5.0.20.21406), X64 RyuJIT
+</code></pre>
+<pre><code>RunStrategy=Throughput  
+</code></pre>
+
+<table>
+<thead><tr><th> Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Ratio</th><th>RatioSD</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>ReplaceString</td><td>944.63 ns</td><td>14.738 ns</td><td>13.065 ns</td><td>11.46</td><td>0.16</td><td>0.2804</td><td>-</td><td>-</td><td>880 B</td>
+</tr><tr><td>ReplaceChar</td><td>292.21 ns</td><td>3.005 ns</td><td>2.811 ns</td><td>3.54</td><td>0.03</td><td>0.2804</td><td>-</td><td>-</td><td>880 B</td>
+</tr><tr><td>StringBuilder</td><td>257.94 ns</td><td>1.763 ns</td><td>1.649 ns</td><td>3.13</td><td>0.03</td><td>0.0710</td><td>-</td><td>-</td><td>224 B</td>
+</tr><tr><td>CharArray</td><td>105.89 ns</td><td>0.946 ns</td><td>0.838 ns</td><td>1.28</td><td>0.01</td><td>0.0560</td><td>-</td><td>-</td><td>176 B</td>
+</tr><tr><td>Span</td><td>82.53 ns</td><td>0.526 ns</td><td>0.439 ns</td><td>1.00</td><td>0.00</td><td>0.0280</td><td>-</td><td>-</td><td>88 B</td>
+</tr></tbody></table>
+</body>
+</html>
