@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reflection-NonReflection-Be
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Throw-Exception-Benchmark", "Throw-Exception-Benchmark\Throw-Exception-Benchmark.csproj", "{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Replace-CharArray-Benchmark", "Replace-CharArray-Benchmark\Replace-CharArray-Benchmark.csproj", "{C4421E03-DF30-4924-AE25-C5C697076023}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}.Release|x64.ActiveCfg = Release|Any CPU
 		{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}.Release|x64.Build.0 = Release|Any CPU
+		{C4421E03-DF30-4924-AE25-C5C697076023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4421E03-DF30-4924-AE25-C5C697076023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4421E03-DF30-4924-AE25-C5C697076023}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C4421E03-DF30-4924-AE25-C5C697076023}.Debug|x64.Build.0 = Debug|Any CPU
+		{C4421E03-DF30-4924-AE25-C5C697076023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4421E03-DF30-4924-AE25-C5C697076023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4421E03-DF30-4924-AE25-C5C697076023}.Release|x64.ActiveCfg = Release|Any CPU
+		{C4421E03-DF30-4924-AE25-C5C697076023}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
