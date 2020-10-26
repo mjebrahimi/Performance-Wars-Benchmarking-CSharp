@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reflection-NonReflection-Be
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Throw-Exception-Benchmark", "Throw-Exception-Benchmark\Throw-Exception-Benchmark.csproj", "{127C0FE7-B9B1-4FF2-B386-3D6B3F29442D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Replace-CharArray-Benchmark", "Replace-CharArray-Benchmark\Replace-CharArray-Benchmark.csproj", "{C4421E03-DF30-4924-AE25-C5C697076023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Replace-CharArray-Benchmark", "Replace-CharArray-Benchmark\Replace-CharArray-Benchmark.csproj", "{C4421E03-DF30-4924-AE25-C5C697076023}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "New-Lazy-Instantiate", "New-Lazy-Instantiate\New-Lazy-Instantiate.csproj", "{5541207E-4FCC-4D27-9573-6BF9FB9E3690}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,14 @@ Global
 		{C4421E03-DF30-4924-AE25-C5C697076023}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C4421E03-DF30-4924-AE25-C5C697076023}.Release|x64.ActiveCfg = Release|Any CPU
 		{C4421E03-DF30-4924-AE25-C5C697076023}.Release|x64.Build.0 = Release|Any CPU
+		{5541207E-4FCC-4D27-9573-6BF9FB9E3690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5541207E-4FCC-4D27-9573-6BF9FB9E3690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5541207E-4FCC-4D27-9573-6BF9FB9E3690}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5541207E-4FCC-4D27-9573-6BF9FB9E3690}.Debug|x64.Build.0 = Debug|Any CPU
+		{5541207E-4FCC-4D27-9573-6BF9FB9E3690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5541207E-4FCC-4D27-9573-6BF9FB9E3690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5541207E-4FCC-4D27-9573-6BF9FB9E3690}.Release|x64.ActiveCfg = Release|Any CPU
+		{5541207E-4FCC-4D27-9573-6BF9FB9E3690}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
