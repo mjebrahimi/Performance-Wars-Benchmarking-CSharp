@@ -10,9 +10,9 @@ namespace New_Lazy_Instantiate
     [KeepBenchmarkFiles(false)]
     public class Benchmark
     {
-        private const int count = 100000;
+        private const int count = 10;
 
-        [Benchmark(Description = "100,000 Ctor Instantiate")]
+        [Benchmark(Description = "10 times Ctor Instantiate")]
         public void Ctor_Instantiate()
         {
             for (int i = 0; i < count; i++)
@@ -21,7 +21,7 @@ namespace New_Lazy_Instantiate
             }
         }
 
-        [Benchmark(Baseline = true, Description = "100,000 Lazy Instantiate")]
+        [Benchmark(Baseline = true, Description = "10 times Lazy Instantiate")]
         public void Lazy_Instantiate()
         {
             for (int i = 0; i < count; i++)

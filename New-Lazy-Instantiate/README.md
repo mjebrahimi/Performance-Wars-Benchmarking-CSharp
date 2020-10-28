@@ -1,6 +1,6 @@
 # Ctor Instantiate vs Lazy Instantiate
 
-For 100,000 iteration the results were **Considerable**.
+IMO this is a micro-optimization but a **Considerable** one.
 
 Lazy instantiation was about **120x faster** with **zero allocation**.
 
