@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29728.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "For-ForEach-Benchmark", "For-ForEach-Benchmark\For-ForEach-Benchmark.csproj", "{0AAB4A85-5DE0-439A-852B-F1750FC7E2DA}"
 EndProject
@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Throw-Exception-Benchmark",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Replace-CharArray-Benchmark", "Replace-CharArray-Benchmark\Replace-CharArray-Benchmark.csproj", "{C4421E03-DF30-4924-AE25-C5C697076023}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "New-Lazy-Instantiate", "New-Lazy-Instantiate\New-Lazy-Instantiate.csproj", "{5541207E-4FCC-4D27-9573-6BF9FB9E3690}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "New-Lazy-Instantiate", "New-Lazy-Instantiate\New-Lazy-Instantiate.csproj", "{5541207E-4FCC-4D27-9573-6BF9FB9E3690}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metrics-Benchmark", "Metrics-Benchmark\Metrics-Benchmark.csproj", "{D0D241E5-35B5-45AC-A766-C8F02B5A6508}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,14 @@ Global
 		{5541207E-4FCC-4D27-9573-6BF9FB9E3690}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5541207E-4FCC-4D27-9573-6BF9FB9E3690}.Release|x64.ActiveCfg = Release|Any CPU
 		{5541207E-4FCC-4D27-9573-6BF9FB9E3690}.Release|x64.Build.0 = Release|Any CPU
+		{D0D241E5-35B5-45AC-A766-C8F02B5A6508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0D241E5-35B5-45AC-A766-C8F02B5A6508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0D241E5-35B5-45AC-A766-C8F02B5A6508}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D0D241E5-35B5-45AC-A766-C8F02B5A6508}.Debug|x64.Build.0 = Debug|Any CPU
+		{D0D241E5-35B5-45AC-A766-C8F02B5A6508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0D241E5-35B5-45AC-A766-C8F02B5A6508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0D241E5-35B5-45AC-A766-C8F02B5A6508}.Release|x64.ActiveCfg = Release|Any CPU
+		{D0D241E5-35B5-45AC-A766-C8F02B5A6508}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
