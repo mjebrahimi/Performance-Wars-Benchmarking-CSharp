@@ -6,3 +6,4 @@
 4.  [Normal flow vs Throw Exception Benchmark](/Throw-Exception-Benchmark)
 5.  [string Replace vs ToCharArray vs Span](/Replace-CharArray-Benchmark)
 6.  [Ctor Instantiate vs Lazy Instantiaten](/New-Lazy-Instantiate)
+7.  [Prometheus-net metrics benchmark](https://github.com/mjebrahimi/Micro-Optimization-Samples/tree/master/Metrics-Benchmark)
