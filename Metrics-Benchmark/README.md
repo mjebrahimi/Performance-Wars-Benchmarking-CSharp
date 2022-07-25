@@ -1,3 +1,3 @@
-# promethus-net Metrics benchmark
+# Promethus-net metrics benchmark
 
 ![Benchmark](benchmark.png)
