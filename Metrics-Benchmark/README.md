@@ -1,3 +1,3 @@
 # promethus-net Metrics benchmark
 
-![Benchmark](Benchmark.png)
+![Benchmark](benchmark.png)
