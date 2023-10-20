@@ -1,4 +1,4 @@
-# Micro Optimization Samples
+# Performance Wars - C#
 
 1.  [List.TrimExess() Benchmark](/List-TrimExess-Benchmark)
 2.  [for vs foreach vs ForEach() Benchmark](/For-ForEach-Benchmark)
@@ -10,3 +10,6 @@
 8.  [PropertyGetter benchmark](https://github.com/mjebrahimi/Micro-Optimization-Samples/tree/master/Property-Getter-Benchmark)
 9.  [Reverse string benchmark](https://github.com/mjebrahimi/Micro-Optimization-Samples/tree/master/String-Reverse-Benchmark)
 10.  [Concat string benchmark](https://github.com/mjebrahimi/Micro-Optimization-Samples/tree/master/String-Concat-Benchmark)
+
+## Useful Resources
+https://github.com/martinstm/benchmarks
