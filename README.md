@@ -1,4 +1,4 @@
-# Performance Wars - C#
+# Performance Wars Benchmarking - C#
 
 1.  [List.TrimExess() Benchmark](/List-TrimExess-Benchmark)
 2.  [for vs foreach vs ForEach() Benchmark](/For-ForEach-Benchmark)
