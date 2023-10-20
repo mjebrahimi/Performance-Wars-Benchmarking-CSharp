@@ -9,3 +9,4 @@
 7.  [Prometheus-net metrics benchmark](https://github.com/mjebrahimi/Micro-Optimization-Samples/tree/master/Metrics-Benchmark)
 8.  [PropertyGetter benchmark](https://github.com/mjebrahimi/Micro-Optimization-Samples/tree/master/Property-Getter-Benchmark)
 9.  [Reverse string benchmark](https://github.com/mjebrahimi/Micro-Optimization-Samples/tree/master/String-Reverse-Benchmark)
+10.  [Concat string benchmark](https://github.com/mjebrahimi/Micro-Optimization-Samples/tree/master/String-Concat-Benchmark)

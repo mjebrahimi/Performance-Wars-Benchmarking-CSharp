@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Property-Getter-Benchmark",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "String-Reverse-Benchmark", "String-Reverse-Benchmark\String-Reverse-Benchmark.csproj", "{8344902B-0FCF-4467-B035-288DD50C243D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "String-Concat-Benchmark", "String-Concat-Benchmark\String-Concat-Benchmark.csproj", "{4DE084CD-CC1D-467E-BEF9-6DD41A0BB2A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,14 @@ Global
 		{8344902B-0FCF-4467-B035-288DD50C243D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8344902B-0FCF-4467-B035-288DD50C243D}.Release|x64.ActiveCfg = Release|Any CPU
 		{8344902B-0FCF-4467-B035-288DD50C243D}.Release|x64.Build.0 = Release|Any CPU
+		{4DE084CD-CC1D-467E-BEF9-6DD41A0BB2A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DE084CD-CC1D-467E-BEF9-6DD41A0BB2A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DE084CD-CC1D-467E-BEF9-6DD41A0BB2A0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4DE084CD-CC1D-467E-BEF9-6DD41A0BB2A0}.Debug|x64.Build.0 = Debug|Any CPU
+		{4DE084CD-CC1D-467E-BEF9-6DD41A0BB2A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DE084CD-CC1D-467E-BEF9-6DD41A0BB2A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DE084CD-CC1D-467E-BEF9-6DD41A0BB2A0}.Release|x64.ActiveCfg = Release|Any CPU
+		{4DE084CD-CC1D-467E-BEF9-6DD41A0BB2A0}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
