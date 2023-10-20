@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metrics-Benchmark", "Metric
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Property-Getter-Benchmark", "Property-Getter-Benchmark\Property-Getter-Benchmark.csproj", "{82DA51D7-B25D-4B50-B60C-B2DB94BA0F9F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "String-Reverse-Benchmark", "String-Reverse-Benchmark\String-Reverse-Benchmark.csproj", "{8344902B-0FCF-4467-B035-288DD50C243D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,14 @@ Global
 		{82DA51D7-B25D-4B50-B60C-B2DB94BA0F9F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{82DA51D7-B25D-4B50-B60C-B2DB94BA0F9F}.Release|x64.ActiveCfg = Release|Any CPU
 		{82DA51D7-B25D-4B50-B60C-B2DB94BA0F9F}.Release|x64.Build.0 = Release|Any CPU
+		{8344902B-0FCF-4467-B035-288DD50C243D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8344902B-0FCF-4467-B035-288DD50C243D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8344902B-0FCF-4467-B035-288DD50C243D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8344902B-0FCF-4467-B035-288DD50C243D}.Debug|x64.Build.0 = Debug|Any CPU
+		{8344902B-0FCF-4467-B035-288DD50C243D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8344902B-0FCF-4467-B035-288DD50C243D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8344902B-0FCF-4467-B035-288DD50C243D}.Release|x64.ActiveCfg = Release|Any CPU
+		{8344902B-0FCF-4467-B035-288DD50C243D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
