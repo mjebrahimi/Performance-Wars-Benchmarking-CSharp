@@ -21,34 +21,62 @@ Console.ReadLine();
 [Orderer(SummaryOrderPolicy.FastestToSlowest, MethodOrderPolicy.Declared)]
 public class Benchmark
 {
-    const string input = "Although most people consider piranhas to be quite dangerous, they are, for the most part, entirely harmless. Piranhas rarely feed on large animals.they eat smaller fish and aquatic plants.";
+    const string text = "Although most people consider piranhas to be quite dangerous, they are, for the most part, entirely harmless. Piranhas rarely feed on large animals.they eat smaller fish and aquatic plants.";
 
     [Benchmark]
-    public void LinqReverse_NewString()
+    public string LinqReverse_NewString()
     {
-        _ = new string(input.Reverse().ToArray());
+        return new string(text.Reverse().ToArray());
     }
 
     [Benchmark]
-    public void LinqReverse_StringJoin()
+    public string LinqReverse_StringJoin()
     {
-        _ = string.Join("", input.Reverse().ToArray());
+        return string.Join("", text.Reverse().ToArray());
     }
 
     [Benchmark]
-    public void ArrayReverse_NewString()
+    public string StringBuilder_Reverse()
     {
-        char[] charArray = input.ToCharArray();
+        var builder = new StringBuilder(text.Length);
+        for (int i = text.Length - 1; i >= 0; i--)
+            builder.Append(text[i]);
+        return builder.ToString();
+    }
+
+    [Benchmark]
+    public string StringWriter_Reverse()
+    {
+        var sb = new StringWriter(); // uses underlying stringbuilder 
+        for (int i = text.Length - 1; i >= 0; i--)
+            sb.Write(text[i]);
+        return sb.ToString();
+    }
+
+    [Benchmark]
+    public string ArrayReverse_NewString()
+    {
+        var charArray = text.ToCharArray();
         Array.Reverse(charArray);
-        _ = new string(charArray);
+        return new string(charArray);
     }
 
     [Benchmark]
-    public void StringBuilder_Reverse()
+    public string Span_Reverse()
     {
-        var builder = new StringBuilder(input.Length);
-        for (int i = input.Length - 1; i >= 0; i--)
-            builder.Append(input[i]);
-        _ = builder.ToString();
+        Span<char> span = text.ToCharArray();
+        span.Reverse();
+        return new string(span); //span.ToString(); //the same
+    }
+
+    [Benchmark]
+    public string StringCreate_Reverse()
+    {
+        return string.Create(text.Length, text, (chars, state) =>
+        {
+            var pos = 0;
+            for (int i = state.Length - 1; i >= 0; i--)
+                chars[pos++] = state[i];
+        });
     }
 }
