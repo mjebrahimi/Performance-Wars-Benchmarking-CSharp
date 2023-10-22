@@ -24,37 +24,7 @@ public class Benchmark
     const string text = "Although most people consider piranhas to be quite dangerous, they are, for the most part, entirely harmless. Piranhas rarely feed on large animals.they eat smaller fish and aquatic plants.";
 
     [Benchmark]
-    public string LinqReverse_NewString()
-    {
-        return new string(text.Reverse().ToArray());
-    }
-
-    [Benchmark]
-    public string LinqReverse_StringJoin()
-    {
-        return string.Join("", text.Reverse().ToArray());
-    }
-
-    [Benchmark]
-    public string StringBuilder_Reverse()
-    {
-        var builder = new StringBuilder(text.Length);
-        for (int i = text.Length - 1; i >= 0; i--)
-            builder.Append(text[i]);
-        return builder.ToString();
-    }
-
-    [Benchmark]
-    public string StringWriter_Reverse()
-    {
-        var sb = new StringWriter(); // uses underlying stringbuilder 
-        for (int i = text.Length - 1; i >= 0; i--)
-            sb.Write(text[i]);
-        return sb.ToString();
-    }
-
-    [Benchmark]
-    public string ArrayReverse_NewString()
+    public string Array_Reverse()
     {
         var charArray = text.ToCharArray();
         Array.Reverse(charArray);
@@ -70,7 +40,7 @@ public class Benchmark
     }
 
     [Benchmark]
-    public string StringCreate_Reverse()
+    public string StringCreate()
     {
         return string.Create(text.Length, text, (chars, state) =>
         {
@@ -78,5 +48,53 @@ public class Benchmark
             for (int i = state.Length - 1; i >= 0; i--)
                 chars[pos++] = state[i];
         });
+    }
+
+    [Benchmark]
+    public string StringBuilderCache()
+    {
+        var builder = System.Text.StringBuilderCache.Acquire(text.Length);
+        for (int i = text.Length - 1; i >= 0; i--)
+            builder.Append(text[i]);
+        return System.Text.StringBuilderCache.GetStringAndRelease(builder);
+    }
+
+    [Benchmark]
+    public string StringBuilder()
+    {
+        var builder = new StringBuilder(text.Length);
+        for (int i = text.Length - 1; i >= 0; i--)
+            builder.Append(text[i]);
+        return builder.ToString();
+    }
+
+    [Benchmark]
+    public string ValueStringBuilder()
+    {
+        var builder = new ValueStringBuilder(text.Length);
+        for (int i = text.Length - 1; i >= 0; i--)
+            builder.Append(text[i]);
+        return builder.ToString();
+    }
+
+    [Benchmark]
+    public string StringWriter()
+    {
+        var writer = new StringWriter(); // uses underlying stringbuilder 
+        for (int i = text.Length - 1; i >= 0; i--)
+            writer.Write(text[i]);
+        return writer.ToString();
+    }
+
+    [Benchmark]
+    public string LinqReverse_NewString()
+    {
+        return new string(text.Reverse().ToArray());
+    }
+
+    [Benchmark]
+    public string LinqReverse_StringJoin()
+    {
+        return string.Join("", text.Reverse().ToArray());
     }
 }

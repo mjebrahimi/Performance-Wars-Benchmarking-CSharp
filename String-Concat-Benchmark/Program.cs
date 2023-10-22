@@ -56,9 +56,36 @@ public class Benchmark
     };
 
     [Benchmark]
+    public string StringBuilderCache_Append()
+    {
+        var builder = StringBuilderCache.Acquire();
+        for (int i = 0; i < arr.Length; i++)
+            builder.Append(arr[i]);
+        return StringBuilderCache.GetStringAndRelease(builder);
+    }
+
+    [Benchmark]
     public string StringConcat()
     {
         return string.Concat(arr);
+    }
+
+    [Benchmark]
+    public string ValueStringBuilder_Append()
+    {
+        var builder = new ValueStringBuilder();
+        for (int i = 0; i < arr.Length; i++)
+            builder.Append(arr[i]);
+        return builder.ToString();
+    }
+
+    [Benchmark]
+    public string StringBuilder_Append()
+    {
+        var builder = new StringBuilder();
+        for (int i = 0; i < arr.Length; i++)
+            builder.Append(arr[i]);
+        return builder.ToString();
     }
 
     [Benchmark]
@@ -68,12 +95,10 @@ public class Benchmark
     }
 
     [Benchmark]
-    public string StringBuilder_Append()
+    public string LinqAggregate_StringBuilder()
     {
-        var sbs = new StringBuilder();
-        for (int i = 0; i < arr.Length; i++)
-            sbs.Append(arr[i]);
-        return sbs.ToString();
+        var sb = arr.Aggregate(new StringBuilder(), (sb, str) => sb.Append(str));
+        return sb.ToString();
     }
 
     [Benchmark]
@@ -87,12 +112,5 @@ public class Benchmark
     public string LinqAggregate_Plus()
     {
         return arr.Aggregate((prev, current) => prev + current);
-    }
-
-    [Benchmark]
-    public string LinqAggregate_StringBuilder()
-    {
-        var sb = arr.Aggregate(new StringBuilder(), (sb, str) => sb.Append(str));
-        return sb.ToString();
     }
 }
