@@ -6,6 +6,10 @@ using System.Runtime.InteropServices;
 namespace System.Text
 {
     /// <summary>
+    /// It's very tricky and risky to misuse, use it with caution!
+    ///    1. Don't pass ValueStringBuilder instances to other methods by value; instead, pass them by reference (ref).
+    ///    2. It's recommended to use the constructor with (initialBuffer: stackalloc char[maxCapacityYouNeed]) whenever it's possible.
+    //     3. Don't use the parameter-less constructor; at least use the constructor with (initialCapacity: maxCapacityYouNeed).
     /// https://andrewlock.net/a-deep-dive-on-stringbuilder-part-6-vaulestringbuilder-a-stack-based-string-builder/
     /// https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/Text/ValueStringBuilder.cs
     /// </summary>
