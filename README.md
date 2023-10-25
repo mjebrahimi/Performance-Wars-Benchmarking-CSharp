@@ -11,6 +11,7 @@
 9.  [Reverse string benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/String-Reverse-Benchmark)
 10.  [Concat string benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/String-Concat-Benchmark)
 11.  [Word reverse benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Word-Reverse-Benchmark)
+12.  [OrderBy.First/Last vs Min/Max benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/OrderByFirstLast-MinMax-Benchmark)
 
 ## Useful Resources
 https://github.com/martinstm/benchmarks
