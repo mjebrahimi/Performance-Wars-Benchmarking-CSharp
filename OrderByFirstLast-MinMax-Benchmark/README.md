@@ -1,4 +1,4 @@
-# Different methods to Reverse a string
+# [indexer] vs OrderBy.First/Last vs ElementAt vs Min/Max benchmark
 
 ## Key Results: 
 1. `Min()` and `Max()` are **the fastest and most memory efficient** on `Array` and `List`
