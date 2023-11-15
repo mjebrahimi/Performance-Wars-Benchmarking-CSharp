@@ -13,7 +13,7 @@
 11.  [Word reverse benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Word-Reverse-Benchmark)
 12.  [OrderBy.First/Last vs Min/Max benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/OrderByFirstLast-MinMax-Benchmark)
 12.  [OrderBy.First/Last vs Min/Max benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Collection-Shuffle-Benchmark)
-13.  [Collection Shuffle Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Collection-Shuffle-Benchmark)
+13.  [Collection Shuffle benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Collection-Shuffle-Benchmark)
 
 ## Useful Resources
 https://github.com/martinstm/benchmarks
