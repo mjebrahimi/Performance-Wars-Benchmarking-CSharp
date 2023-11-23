@@ -1,7 +1,8 @@
 # Different methods to reverse words in a text except delimiters (space, dot, comma)
 
-## Key Results: 
-**Fastest and Most GC efficient Method is 👇**
+## Key Results
+
+**Fastest and Most GC efficient Method is 👇:**
 
 ```cs
 public static string ReverseWords(string input)

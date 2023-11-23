@@ -1,6 +1,7 @@
 # Different methods to Concact a string[]
 
-## Key Results: 
+## Key Results
+
 **Fastest** and **Most CG Efficient**  Methods are 👇
 
 ```cs

@@ -1,7 +1,8 @@
 # Different methods to Reverse a string
 
-## Key Results: 
-**Fastest Methods (2x more allocation than string.Create) are 👇**
+## Key Results
+
+**Fastest Methods (2x more allocation than string.Create) are 👇:**
 
 ```cs
 public static string Reverse(string text)
@@ -19,7 +20,8 @@ public static string Reverse(string text)
 }
 ```
 
-**Most CG efficient (a bit slower than previous) Method is 👇**
+**Most CG efficient (a bit slower than previous) Method is 👇:**
+
 ```cs
 public static string Reverse(string text)
 {
