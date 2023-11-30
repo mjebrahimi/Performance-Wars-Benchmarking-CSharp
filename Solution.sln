@@ -33,6 +33,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Collection-Shuffle-Benchmar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileStream-WriteAsync-Benchmark", "FileStream-WriteAsync-Benchmark\FileStream-WriteAsync-Benchmark.csproj", "{7F58D3F5-C33C-4987-8539-8E6E9A2FC2D4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stream-To-ByteArray-Benchmark", "Stream-To-ByteArray-Benchmark\Stream-To-ByteArray-Benchmark.csproj", "{B39A5DAC-0E82-436D-A61C-D5B72A251904}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allocating-Array-Benchmark", "Allocating-Array-Benchmark\Allocating-Array-Benchmark.csproj", "{AA601959-5FBE-4B4A-9AC3-46557D93F4AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -161,6 +165,22 @@ Global
 		{7F58D3F5-C33C-4987-8539-8E6E9A2FC2D4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F58D3F5-C33C-4987-8539-8E6E9A2FC2D4}.Release|x64.ActiveCfg = Release|Any CPU
 		{7F58D3F5-C33C-4987-8539-8E6E9A2FC2D4}.Release|x64.Build.0 = Release|Any CPU
+		{B39A5DAC-0E82-436D-A61C-D5B72A251904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B39A5DAC-0E82-436D-A61C-D5B72A251904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B39A5DAC-0E82-436D-A61C-D5B72A251904}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B39A5DAC-0E82-436D-A61C-D5B72A251904}.Debug|x64.Build.0 = Debug|Any CPU
+		{B39A5DAC-0E82-436D-A61C-D5B72A251904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B39A5DAC-0E82-436D-A61C-D5B72A251904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B39A5DAC-0E82-436D-A61C-D5B72A251904}.Release|x64.ActiveCfg = Release|Any CPU
+		{B39A5DAC-0E82-436D-A61C-D5B72A251904}.Release|x64.Build.0 = Release|Any CPU
+		{AA601959-5FBE-4B4A-9AC3-46557D93F4AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA601959-5FBE-4B4A-9AC3-46557D93F4AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA601959-5FBE-4B4A-9AC3-46557D93F4AB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AA601959-5FBE-4B4A-9AC3-46557D93F4AB}.Debug|x64.Build.0 = Debug|Any CPU
+		{AA601959-5FBE-4B4A-9AC3-46557D93F4AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA601959-5FBE-4B4A-9AC3-46557D93F4AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA601959-5FBE-4B4A-9AC3-46557D93F4AB}.Release|x64.ActiveCfg = Release|Any CPU
+		{AA601959-5FBE-4B4A-9AC3-46557D93F4AB}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

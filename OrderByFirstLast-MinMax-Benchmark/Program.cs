@@ -24,80 +24,90 @@ public class Benchmark
     private readonly List<int> _list = new() { 5, 10 };
 
     [Benchmark]
-    public void Array_OrderBy_ToArray_01()
+    public (int, int) Array_OrderBy_ToArray_01()
     {
         var ordered = _array.OrderBy(p => p).ToArray();
         var min = ordered[0];
         var max = ordered[1];
+        return (min, max);
     }
 
     [Benchmark]
-    public void Array_OrderBy_ToArray_FirstLast()
+    public (int, int) Array_OrderBy_ToArray_FirstLast()
     {
         var ordered = _array.OrderBy(p => p).ToArray();
         var min = ordered.First();
         var max = ordered.Last();
+        return (min, max);
     }
 
     [Benchmark]
-    public void Array_OrderBy_Enumerable_01()
+    public (int, int) Array_OrderBy_Enumerable_01()
     {
         var ordered = _array.OrderBy(p => p);
         var min = ordered.ElementAt(0);
         var max = ordered.ElementAt(1);
+        return (min, max);
     }
 
     [Benchmark]
-    public void Array_OrderBy_Enumerable_FirstLast()
+    public (int, int) Array_OrderBy_Enumerable_FirstLast()
     {
         var ordered = _array.OrderBy(p => p);
         var min = ordered.First();
         var max = ordered.Last();
+        return (min, max);
     }
 
     [Benchmark]
-    public void Array_MinMax()
+    public (int, int) Array_MinMax()
     {
         var min = _array.Min();
         var max = _array.Max();
+        return (min, max);
     }
 
     [Benchmark]
-    public void List__OrderBy_ToList__01()
+    public (int, int) List__OrderBy_ToList__01()
     {
         var ordered = _list.OrderBy(p => p).ToList();
         var min = ordered[0];
         var max = ordered[1];
+        return (min, max);
     }
 
     [Benchmark]
-    public void List__OrderBy_ToList__FirstLast()
+    public (int, int) List__OrderBy_ToList__FirstLast()
     {
         var ordered = _list.OrderBy(p => p).ToList();
         var min = ordered.First();
         var max = ordered.Last();
+        return (min, max);
     }
 
     [Benchmark]
-    public void List__OrderBy_Enumerable_01()
+    public (int, int) List__OrderBy_Enumerable_01()
     {
         var ordered = _list.OrderBy(p => p);
         var min = ordered.ElementAt(0);
         var max = ordered.ElementAt(1);
+        return (min, max);
     }
 
     [Benchmark]
-    public void List__OrderBy_Enumerable_FirstLast()
+    public (int, int) List__OrderBy_Enumerable_FirstLast()
     {
         var ordered = _list.OrderBy(p => p);
         var min = ordered.First();
         var max = ordered.Last();
+        return (min, max);
     }
 
     [Benchmark]
-    public void List__MinMax()
+    public (int, int) List__MinMax()
     {
         var min = _list.Min();
         var max = _list.Max();
+        return (min, max);
     }
 }

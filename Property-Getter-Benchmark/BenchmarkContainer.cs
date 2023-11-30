@@ -41,6 +41,8 @@ public class BenchmarkContainer
     private readonly PropertyFetcher2<HttpRequestMessage> _requestPropertyFetcher2;
     private readonly PropertyFetcher2<HttpResponseMessage> _responsePropertyFetcher2;
 
+    //[GlobalSetup]
+    //public void Setup()
     public BenchmarkContainer()
     {
         _startData = HttpDiagnostic.GetActivityStartData();
@@ -61,38 +63,43 @@ public class BenchmarkContainer
     }
 
     [Benchmark]
-    public void FieldGetter()
+    public (HttpRequestMessage, HttpResponseMessage) FieldGetter()
     {
-        var req = _requestAccessor(_startData);
-        var res = _responseAccessor(_stopData);
+        var httpRequest = _requestAccessor(_startData);
+        var httpResponse = _responseAccessor(_stopData);
+        return (httpRequest, httpResponse);
     }
 
     [Benchmark]
-    public void PropertyFetcher()
+    public (HttpRequestMessage, HttpResponseMessage) PropertyFetcher()
     {
-        var req = _requestPropertyFetcher.Fetch(_startData);
-        var res = _responsePropertyFetcher.Fetch(_stopData);
+        var httpRequest = _requestPropertyFetcher.Fetch(_startData);
+        var httpResponse = _responsePropertyFetcher.Fetch(_stopData);
+        return (httpRequest, httpResponse);
     }
 
     [Benchmark]
-    public void PropertyFetcher2()
+    public (HttpRequestMessage, HttpResponseMessage) PropertyFetcher2()
     {
-        var req = _requestPropertyFetcher2.Fetch(_startData);
-        var res = _responsePropertyFetcher2.Fetch(_stopData);
+        var httpRequest = _requestPropertyFetcher2.Fetch(_startData);
+        var httpResponse = _responsePropertyFetcher2.Fetch(_stopData);
+        return (httpRequest, httpResponse);
     }
 
     [Benchmark]
-    public void ExpressionFetcher()
+    public (HttpRequestMessage, HttpResponseMessage) ExpressionFetcher()
     {
-        var req = PropertyGetterBenchmark.ExpressionFetcher.GetRequestMessage(_startData);
-        var res = PropertyGetterBenchmark.ExpressionFetcher.GetResponseMessage(_stopData);
+        var httpRequest = PropertyGetterBenchmark.ExpressionFetcher.GetRequestMessage(_startData);
+        var httpResponse = PropertyGetterBenchmark.ExpressionFetcher.GetResponseMessage(_stopData);
+        return (httpRequest, httpResponse);
     }
 
     [Benchmark]
-    public void ReflectionFetcher()
+    public (HttpRequestMessage, HttpResponseMessage) ReflectionFetcher()
     {
-        var req = PropertyGetterBenchmark.ReflectionFetcher.RequestAccessor(_startData);
-        var res = PropertyGetterBenchmark.ReflectionFetcher.ResponseAccessor(_stopData);
+        var httpRequest = PropertyGetterBenchmark.ReflectionFetcher.RequestAccessor(_startData);
+        var httpResponse = PropertyGetterBenchmark.ReflectionFetcher.ResponseAccessor(_stopData);
+        return (httpRequest, httpResponse);
     }
 }
 

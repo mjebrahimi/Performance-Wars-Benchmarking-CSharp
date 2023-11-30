@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-    <RootNamespace>Collection-Shuffle-Benchmark</RootNamespace>
-  </PropertyGroup>
+		<RootNamespace>Stream-To-ByteArray-Benchmark</RootNamespace>
+	</PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="BenchmarkDotNet" Version="0.13.10" />
-  </ItemGroup>
+		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.3.2" />
+	</ItemGroup>
 
 </Project>

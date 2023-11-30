@@ -13,7 +13,7 @@ namespace System.Text
     /// https://andrewlock.net/a-deep-dive-on-stringbuilder-part-6-vaulestringbuilder-a-stack-based-string-builder/
     /// https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/Text/ValueStringBuilder.cs
     /// </summary>
-    public ref partial struct ValueStringBuilder
+    public ref struct ValueStringBuilder
     {
         private char[]? _arrayToReturnToPool;
         private Span<char> _chars;
@@ -35,7 +35,7 @@ namespace System.Text
 
         public int Length
         {
-            get => _pos;
+            readonly get => _pos;
             set
             {
                 Debug.Assert(value >= 0);
@@ -44,7 +44,7 @@ namespace System.Text
             }
         }
 
-        public int Capacity => _chars.Length;
+        public readonly int Capacity => _chars.Length;
 
         public void EnsureCapacity(int capacity)
         {
@@ -62,7 +62,7 @@ namespace System.Text
         /// This overload is pattern matched in the C# 7.3+ compiler so you can omit
         /// the explicit method call, and write eg "fixed (char* c = builder)"
         /// </summary>
-        public ref char GetPinnableReference()
+        public readonly ref char GetPinnableReference()
         {
             return ref MemoryMarshal.GetReference(_chars);
         }
@@ -92,13 +92,13 @@ namespace System.Text
 
         public override string ToString()
         {
-            string s = _chars.Slice(0, _pos).ToString();
+            string s = _chars[.._pos].ToString();
             Dispose();
             return s;
         }
 
         /// <summary>Returns the underlying storage of the builder.</summary>
-        public Span<char> RawChars => _chars;
+        public readonly Span<char> RawChars => _chars;
 
         /// <summary>
         /// Returns a span around the contents of the builder.
@@ -111,16 +111,16 @@ namespace System.Text
                 EnsureCapacity(Length + 1);
                 _chars[Length] = '\0';
             }
-            return _chars.Slice(0, _pos);
+            return _chars[.._pos];
         }
 
-        public ReadOnlySpan<char> AsSpan() => _chars.Slice(0, _pos);
-        public ReadOnlySpan<char> AsSpan(int start) => _chars.Slice(start, _pos - start);
-        public ReadOnlySpan<char> AsSpan(int start, int length) => _chars.Slice(start, length);
+        public readonly ReadOnlySpan<char> AsSpan() => _chars[.._pos];
+        public readonly ReadOnlySpan<char> AsSpan(int start) => _chars[start.._pos];
+        public readonly ReadOnlySpan<char> AsSpan(int start, int length) => _chars.Slice(start, length);
 
         public bool TryCopyTo(Span<char> destination, out int charsWritten)
         {
-            if (_chars.Slice(0, _pos).TryCopyTo(destination))
+            if (_chars[.._pos].TryCopyTo(destination))
             {
                 charsWritten = _pos;
                 Dispose();
@@ -142,7 +142,7 @@ namespace System.Text
             }
 
             int remaining = _pos - index;
-            _chars.Slice(index, remaining).CopyTo(_chars.Slice(index + count));
+            _chars.Slice(index, remaining).CopyTo(_chars[(index + count)..]);
             _chars.Slice(index, count).Fill(value);
             _pos += count;
         }
@@ -162,12 +162,12 @@ namespace System.Text
             }
 
             int remaining = _pos - index;
-            _chars.Slice(index, remaining).CopyTo(_chars.Slice(index + count));
+            _chars.Slice(index, remaining).CopyTo(_chars[(index + count)..]);
             s
 #if !NETCOREAPP
                 .AsSpan()
 #endif
-                .CopyTo(_chars.Slice(index));
+                .CopyTo(_chars[index..]);
             _pos += count;
         }
 
@@ -219,7 +219,7 @@ namespace System.Text
 #if !NETCOREAPP
                 .AsSpan()
 #endif
-                .CopyTo(_chars.Slice(pos));
+                .CopyTo(_chars[pos..]);
             _pos += s.Length;
         }
 
@@ -246,7 +246,7 @@ namespace System.Text
                 Grow(value.Length);
             }
 
-            value.CopyTo(_chars.Slice(_pos));
+            value.CopyTo(_chars[_pos..]);
             _pos += value.Length;
         }
 
@@ -296,7 +296,7 @@ namespace System.Text
             // This could also go negative if the actual required length wraps around.
             char[] poolArray = ArrayPool<char>.Shared.Rent(newCapacity);
 
-            _chars.Slice(0, _pos).CopyTo(poolArray);
+            _chars[.._pos].CopyTo(poolArray);
 
             char[]? toReturn = _arrayToReturnToPool;
             _chars = _arrayToReturnToPool = poolArray;
@@ -355,7 +355,7 @@ namespace System.Text
                     }
 
                     // Append the text until the brace.
-                    Append(remainder.Slice(0, countUntilNextBrace));
+                    Append(remainder[..countUntilNextBrace]);
                     pos += countUntilNextBrace;
 
                     // Get the brace.  It must be followed by another character, either a copy of itself in the case of being
@@ -521,7 +521,7 @@ namespace System.Text
                     // try formatting it into the remaining current chunk.
                     if ((leftJustify || width == 0) &&
                         arg is ISpanFormattable spanFormattableArg &&
-                        spanFormattableArg.TryFormat(_chars.Slice(_pos), out int charsWritten, itemFormatSpan, provider))
+                        spanFormattableArg.TryFormat(_chars[_pos..], out int charsWritten, itemFormatSpan, provider))
                     {
                         _pos += charsWritten;
 
@@ -585,7 +585,7 @@ namespace System.Text
 
         public void AppendSpanFormattable<T>(T value, string? format = null, IFormatProvider? provider = null) where T : ISpanFormattable
         {
-            if (value.TryFormat(_chars.Slice(_pos), out int charsWritten, format, provider))
+            if (value.TryFormat(_chars[_pos..], out int charsWritten, format, provider))
             {
                 _pos += charsWritten;
             }
