@@ -13,7 +13,6 @@
 //[Orderer(SummaryOrderPolicy.FastestToSlowest, MethodOrderPolicy.Declared)] //Don't use because of CustomConfig.Orderer
 public class Benchmark
 {
-
     #region Sync
     public IEnumerable<object[]> GetParams() => CreateStreams(async: false);
 
@@ -104,7 +103,7 @@ public class Benchmark
 
     #region Utils
     private static readonly IEnumerable<uint> lengths = [
-        4097,       //=> 4KB
+        4096,       //=> 4KB
         16384,      //=> 16KB
         81920,      //=> 80KB
         1048576,    //=> 1MB

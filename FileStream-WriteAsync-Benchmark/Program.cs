@@ -1,155 +1,171 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
-using BenchmarkDotNet.Order;
 using BenchmarkDotNet.Running;
 
+var tempDirectory = Path.Combine(Path.GetTempPath(), "benchmark_temp");
+Directory.CreateDirectory(tempDirectory);
+
 #if DEBUG
+
 Console.ForegroundColor = ConsoleColor.Yellow;
-Console.WriteLine("*****To achieve accurate results, set project configuration to Release mode.*****");
-return;
-#endif
+Console.WriteLine("***** To achieve accurate results, set project configuration to Release mode. *****");
+
+Console.ForegroundColor = ConsoleColor.Red;
+Console.WriteLine("***** Waite 3 seconds for DEBUG MODE! *****");
+
+Thread.Sleep(3000);
+
+//BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, new BenchmarkDotNet.Configs.DebugInProcessConfig()); //For Debugging
+BenchmarkRunner.Run<Benchmark>(new BenchmarkDotNet.Configs.DebugInProcessConfig());
+
+#else
+
+//BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
 BenchmarkRunner.Run<Benchmark>();
+
+#endif
+
+//Cleanup temp files
+Directory.Delete(tempDirectory, true);
 
 Console.ReadLine();
 
-//[DryJob]
+#if RELEASE
+//[DryJob] //Don't use for real benchmark (Just for Test)
 [ShortRunJob]
-//[SimpleJob(RunStrategy.Throughput)]
-[MemoryDiagnoser]
+//[SimpleJob(RunStrategy.ColdStart)]
+#endif
+[Config(typeof(CustomConfig))]
+[HideColumns("bytes")]
+[MemoryDiagnoser(displayGenColumns: false)]
 [KeepBenchmarkFiles(false)]
-[Orderer(SummaryOrderPolicy.FastestToSlowest, MethodOrderPolicy.Declared)]
 public class Benchmark
 {
-    const int fileSize = 500_000_000;
-
-    [GlobalCleanup]
-    public void Cleanup()
+    [Benchmark]
+    [ArgumentsSource(nameof(GetParams2))]
+    [BenchmarkOrder(Priority = 1)]
+    public void File_WriteAllBytes(byte[] bytes, string FileOptions, int FileSize)
     {
-        File.Delete("D:\\data1.dump");
-        File.Delete("D:\\data2.dump");
-        File.Delete("D:\\data3.dump");
-        File.Delete("D:\\data4.dump");
-        File.Delete("D:\\data5.dump");
-        File.Delete("D:\\data6.dump");
-        File.Delete("D:\\data7.dump");
-        File.Delete("D:\\data8.dump");
-        File.Delete("D:\\data9.dump");
-        File.Delete("D:\\data10.dump");
+        var filename = Path.Combine(Path.GetTempPath(), "benchmark_temp", Guid.NewGuid() + ".tmp");
+        File.WriteAllBytes(filename, bytes);
     }
 
     [Benchmark]
-    public void CreateDumpFile()
+    [ArgumentsSource(nameof(GetParams))]
+    [BenchmarkOrder(Priority = 1)]
+    public void FileStream_Write(byte[] bytes, FileOptions FileOptions, int FileSize)
     {
-        using var fileStream = new FileStream("D:\\data1.dump", FileMode.Create, FileAccess.Write);
-        CreateDumpFile(fileStream, fileSize);
+        var filename = Path.Combine(Path.GetTempPath(), "benchmark_temp", Guid.NewGuid() + ".tmp");
+        using var fileStream = new FileStream(filename, FileMode.CreateNew, FileAccess.Write, FileShare.None, 4096, FileOptions);
+        fileStream.Write(bytes);
+        //fileStream.Flush();
     }
 
     [Benchmark]
-    public async Task CreateDumpFile_Async()
+    [ArgumentsSource(nameof(GetParams2))]
+    [BenchmarkOrder(Priority = 2)]
+    public async Task File_WriteAllBytesAsync(byte[] bytes, string FileOptions, int FileSize)
     {
-        using var fileStream = new FileStream("D:\\data2.dump", FileMode.Create, FileAccess.Write);
-        await CreateDumpFileAsync(fileStream, fileSize);
+        var filename = Path.Combine(Path.GetTempPath(), "benchmark_temp", Guid.NewGuid() + ".tmp");
+        await File.WriteAllBytesAsync(filename, bytes);
     }
 
     [Benchmark]
-    public void CreateDumpFile_DeleteOnClose()
+    [ArgumentsSource(nameof(GetParams))]
+    [BenchmarkOrder(Priority = 2)]
+    public async Task FileStream_WriteAsync(byte[] bytes, FileOptions FileOptions, int FileSize)
     {
-        using var fileStream = new FileStream("D:\\data3.dump", FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.DeleteOnClose);
-        CreateDumpFile(fileStream, fileSize);
+        var filename = Path.Combine(Path.GetTempPath(), "benchmark_temp", Guid.NewGuid() + ".tmp");
+        using var fileStream = new FileStream(filename, FileMode.CreateNew, FileAccess.Write, FileShare.None, 4096, FileOptions);
+        await fileStream.WriteAsync(bytes);
+        //await fileStream.FlushAsync();
     }
 
-    [Benchmark]
-    public async Task CreateDumpFile_DeleteOnClose_Async()
+    #region Utils
+    private static readonly IEnumerable<byte[]> dumpFiles = [
+        GetRandomByteArray(81920),      //=> 80KB
+        GetRandomByteArray(1048576),    //=> 1MB
+        //GetRandomByteArray(5_242_880) //=> 5MB //Run with [SimpleJob(RunStrategy.ColdStart)]
+    ];
+
+    private static byte[] GetRandomByteArray(uint length)
     {
-        using var fileStream = new FileStream("D:\\data4.dump", FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.DeleteOnClose);
-        await CreateDumpFileAsync(fileStream, fileSize);
+        var buffer = new byte[length];
+        Random.Shared.NextBytes(buffer.AsSpan());
+        return buffer;
     }
 
-    [Benchmark]
-    public void CreateDumpFile_SequentialScan()
+    private static readonly List<Stream> streams = [];
+    public static IEnumerable<object[]> GetParams()
     {
-        using var fileStream = new FileStream("D:\\data5.dump", FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.SequentialScan);
-        CreateDumpFile(fileStream, fileSize);
-    }
-
-    [Benchmark]
-    public async Task CreateDumpFile_SequentialScan_Async()
-    {
-        using var fileStream = new FileStream("D:\\data6.dump", FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.SequentialScan);
-        await CreateDumpFileAsync(fileStream, fileSize);
-    }
-
-    [Benchmark]
-    public void CreateDumpFile_RandomAccess()
-    {
-        using var fileStream = new FileStream("D:\\data7.dump", FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.RandomAccess);
-        CreateDumpFile(fileStream, fileSize);
-    }
-
-    [Benchmark]
-    public async Task CreateDumpFile_RandomAccess_Async()
-    {
-        using var fileStream = new FileStream("D:\\data8.dump", FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.RandomAccess);
-        await CreateDumpFileAsync(fileStream, fileSize);
-    }
-
-    [Benchmark]
-    public void CreateDumpFile_WriteThrough()
-    {
-        using var fileStream = new FileStream("D:\\data9.dump", FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.WriteThrough);
-        CreateDumpFile(fileStream, fileSize);
-    }
-
-    [Benchmark]
-    public async Task CreateDumpFile_WriteThrough_Async()
-    {
-        using var fileStream = new FileStream("D:\\data10.dump", FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.WriteThrough);
-        await CreateDumpFileAsync(fileStream, fileSize);
-    }
-
-    #region CreateDumpFile
-    public static void CreateDumpFile(FileStream fileStream, long fileSize)
-    {
-        const int maxArraySize = 2_147_483_591;
-        if (fileSize <= maxArraySize)
+        foreach (var dumpFile in dumpFiles)
         {
-            byte[] buffer = new byte[fileSize];
-            fileStream.WriteAsync(buffer, 0, buffer.Length);
+            var size = dumpFile.Length / 1024; //KB
+
+            yield return [dumpFile, FileOptions.None, size];
+            yield return [dumpFile, FileOptions.Asynchronous, size];
         }
-        else
-        {
-            //TODO
-            long currentFileSize = 0;
-            while (currentFileSize < fileSize)
-            {
-                byte[] buffer = new byte[1024];
-                fileStream.WriteAsync(buffer, 0, buffer.Length);
-                currentFileSize += buffer.Length;
-            }
-        }
-        fileStream.FlushAsync();
     }
 
-    public static async Task CreateDumpFileAsync(FileStream fileStream, long fileSize)
+    public static IEnumerable<object[]> GetParams2()
     {
-        const int maxArraySize = 2_147_483_591;
-        if (fileSize <= maxArraySize)
+        foreach (var dumpFile in dumpFiles)
         {
-            byte[] buffer = new byte[fileSize];
-            await fileStream.WriteAsync(buffer).ConfigureAwait(false);
+            var size = dumpFile.Length / 1024; //KB
+
+            yield return [dumpFile, "X", size];
         }
-        else
-        {
-            //TODO
-            long currentFileSize = 0;
-            while (currentFileSize < fileSize)
-            {
-                byte[] buffer = new byte[1024];
-                await fileStream.WriteAsync(buffer).ConfigureAwait(false);
-                currentFileSize += buffer.Length;
-            }
-        }
-        await fileStream.FlushAsync().ConfigureAwait(false);
     }
     #endregion
+
+    #region CreateDumpFile
+    public static void CreateDumpFile(string path, long fileSize)
+    {
+        var maxArraySize = Array.MaxLength; //2_147_483_591
+        if (fileSize <= maxArraySize)
+        {
+            var buffer = new byte[fileSize];
+            File.WriteAllBytes(path, buffer);
+        }
+        else
+        {
+            //TODO
+            var buffer = new byte[1048576]; //1MB
+            long currentFileSize = 0;
+
+            using var fileStream = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.None, 4096, FileOptions.None);
+            while (currentFileSize < fileSize)
+            {
+                fileStream.Write(buffer);
+                currentFileSize += buffer.Length;
+            }
+            fileStream.Flush();
+        }
+    }
+
+    public static async Task CreateDumpFileAsync(string path, long fileSize, CancellationToken cancellationToken)
+    {
+        var maxArraySize = Array.MaxLength; //2_147_483_591
+        if (fileSize <= maxArraySize)
+        {
+            var buffer = new byte[fileSize];
+            await File.WriteAllBytesAsync(path, buffer, cancellationToken).ConfigureAwait(false);
+        }
+        else
+        {
+            //TODO
+            var buffer = new byte[1048576]; //1MB
+            long currentFileSize = 0;
+
+            using var fileStream = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.None, 4096, FileOptions.Asynchronous);
+            while (currentFileSize < fileSize)
+            {
+                await fileStream.WriteAsync(buffer, cancellationToken).ConfigureAwait(false);
+                currentFileSize += buffer.Length;
+            }
+            await fileStream.FlushAsync(cancellationToken).ConfigureAwait(false);
+        }
+    }
+    #endregion
+
 }
