@@ -11,8 +11,8 @@
 7. `Async` methods with `FileOptions.None | Sequential` are **faster** than `FileOptions.Asynchronous`
 
 **Sort by Performance (speed + allocation)**
-2. ReadAllBytes - UsingBinaryReader[NoAsync]
-3. UsingRecyclableMemoryStream
-4. UsingMemoryStream
+1. ReadAllBytes - UsingBinaryReader[NoAsync]
+2. UsingRecyclableMemoryStream
+3. UsingMemoryStream
 
 ![Benchmark](Benchmark.png)
