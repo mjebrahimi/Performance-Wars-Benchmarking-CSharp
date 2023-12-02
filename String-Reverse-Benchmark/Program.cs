@@ -71,7 +71,7 @@ public class Benchmark
     [Benchmark]
     public string ValueStringBuilder()
     {
-        var builder = new ValueStringBuilder(text.Length);
+        using var builder = new ValueStringBuilder(text.Length);
         for (int i = text.Length - 1; i >= 0; i--)
             builder.Append(text[i]);
         return builder.ToString();
@@ -80,7 +80,7 @@ public class Benchmark
     [Benchmark]
     public string StringWriter()
     {
-        var writer = new StringWriter(); // uses underlying stringbuilder 
+        var writer = new StringWriter(); // uses underlying stringbuilder
         for (int i = text.Length - 1; i >= 0; i--)
             writer.Write(text[i]);
         return writer.ToString();

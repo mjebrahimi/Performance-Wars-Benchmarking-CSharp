@@ -19,13 +19,13 @@ public class CustomConfig : ManualConfig
             => benchmarksCase;
 
         public IEnumerable<BenchmarkCase> GetSummaryOrder(ImmutableArray<BenchmarkCase> benchmarksCase, Summary summary)
-           => from benchmark in benchmarksCase
-              orderby
-                   Convert.ToInt32(benchmark.Parameters["FileSize"]) ascending,
-                   benchmark.Parameters["FileStreamOption"].ToString(),
-                   benchmark.Descriptor.WorkloadMethod.GetCustomAttribute<BenchmarkOrderAttribute>()?.Priority.ToString() ?? benchmark.Descriptor.WorkloadMethodDisplayInfo,
-                   summary[benchmark]?.ResultStatistics?.Mean ?? 0
-              select benchmark;
+            => from benchmark in benchmarksCase
+                orderby
+                    Convert.ToInt32(benchmark.Parameters["FileSize"]) ascending,
+                    benchmark.Parameters["FileStreamOption"].ToString(),
+                    benchmark.Descriptor.WorkloadMethod.GetCustomAttribute<BenchmarkOrderAttribute>()?.Priority.ToString() ?? benchmark.Descriptor.WorkloadMethodDisplayInfo,
+                    summary[benchmark]?.ResultStatistics?.Mean ?? 0
+                select benchmark;
 
         public string GetHighlightGroupKey(BenchmarkCase benchmarkCase)
             => benchmarkCase.Parameters["FileSize"].ToString();

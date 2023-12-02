@@ -95,7 +95,6 @@ public class Benchmark
         return buffer;
     }
 
-    private static readonly List<Stream> streams = [];
     public static IEnumerable<object[]> GetParams()
     {
         foreach (var dumpFile in dumpFiles)
