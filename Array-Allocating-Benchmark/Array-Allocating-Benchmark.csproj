@@ -5,7 +5,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<RootNamespace>Stream-To-ByteArray-Benchmark</RootNamespace>
+		<RootNamespace>Array-Allocating-Benchmark</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>

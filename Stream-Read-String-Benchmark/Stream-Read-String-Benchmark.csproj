@@ -5,12 +5,15 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<RootNamespace>Stream-To-ByteArray-Benchmark</RootNamespace>
+		<RootNamespace>Stream-Read-String-Benchmark</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="BenchmarkDotNet" Version="0.13.10" />
-		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.3.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Utilities\Utilities.csproj" />
 	</ItemGroup>
 
 </Project>

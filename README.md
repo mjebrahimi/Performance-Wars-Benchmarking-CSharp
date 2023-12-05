@@ -14,8 +14,11 @@
 12.  [OrderBy.First/Last vs Min/Max Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/OrderByFirstLast-MinMax-Benchmark)
 13.  [Collection Shuffle Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Collection-Shuffle-Benchmark)
 14.  [FileStream Write vs WriteAsync Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/FileStream-WriteAsync-Benchmark)
-15.  [Stream To ByteArray Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Stream-To-ByteArray-Benchmark)
-16.  [Allocating Array Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Allocating-Array-Benchmark)
+15.  [Stream Read Bytes Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Stream-Read-Bytes-Benchmark)
+16.  [Stream Write Bytes Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Stream-Write-Bytes-Benchmark)
+17.  [Stream Read String Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Stream-Read-String-Benchmark)
+18.  [Array Allocating Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Array-Allocating-Benchmark)
+19.  [Array Resizing Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Array-Resizing-Benchmark)
 
 ## Useful Resources
 https://github.com/martinstm/benchmarks

@@ -31,7 +31,7 @@ public class Benchmark
     [BenchmarkOrder(Priority = 1)]
     public byte[] UsingBinaryReader(Stream stream, string FileStreamOption, int FileSize)
     {
-        var result = stream.UsingBinaryReader();
+        var result = stream.UsingBinaryReader_ReadBytes();
         stream.Position = 0;
         return result;
     }
@@ -49,6 +49,16 @@ public class Benchmark
     [Benchmark]
     [ArgumentsSource(nameof(GetParams))]
     [BenchmarkOrder(Priority = 1)]
+    public byte[] UsingMemoryStreamOptimized(Stream stream, string FileStreamOption, int FileSize)
+    {
+        var result = stream.UsingMemoryStreamOptimized();
+        stream.Position = 0;
+        return result;
+    }
+
+    [Benchmark]
+    [ArgumentsSource(nameof(GetParams))]
+    [BenchmarkOrder(Priority = 1)]
     public byte[] UsingRecyclableMemoryStream(Stream stream, string FileStreamOption, int FileSize)
     {
         var result = stream.UsingRecyclableMemoryStream();
@@ -58,37 +68,37 @@ public class Benchmark
     #endregion
 
     #region Async
-    public IEnumerable<object[]> GetAsyncParams() => CreateStreams(async: true);
+    //public IEnumerable<object[]> GetAsyncParams() => CreateStreams(async: true);
 
-    [Benchmark]
-    [ArgumentsSource(nameof(GetAsyncParams))]
-    [BenchmarkOrder(Priority = 2)]
-    public async Task<byte[]> ReadAllBytesAsync(Stream stream, string FileStreamOption, int FileSize)
-    {
-        var result = await stream.ReadAllBytesAsync();
-        stream.Position = 0;
-        return result;
-    }
+    //[Benchmark]
+    //[ArgumentsSource(nameof(GetAsyncParams))]
+    //[BenchmarkOrder(Priority = 2)]
+    //public async Task<byte[]> ReadAllBytesAsync(Stream stream, string FileStreamOption, int FileSize)
+    //{
+    //    var result = await stream.ReadAllBytesAsync();
+    //    stream.Position = 0;
+    //    return result;
+    //}
 
-    [Benchmark]
-    [ArgumentsSource(nameof(GetAsyncParams))]
-    [BenchmarkOrder(Priority = 2)]
-    public async Task<byte[]> UsingRecyclableMemoryStreamAsync(Stream stream, string FileStreamOption, int FileSize)
-    {
-        var result = await stream.UsingRecyclableMemoryStreamAsync();
-        stream.Position = 0;
-        return result;
-    }
+    //[Benchmark]
+    //[ArgumentsSource(nameof(GetAsyncParams))]
+    //[BenchmarkOrder(Priority = 2)]
+    //public async Task<byte[]> UsingRecyclableMemoryStreamAsync(Stream stream, string FileStreamOption, int FileSize)
+    //{
+    //    var result = await stream.UsingRecyclableMemoryStreamAsync();
+    //    stream.Position = 0;
+    //    return result;
+    //}
 
-    [Benchmark]
-    [ArgumentsSource(nameof(GetAsyncParams))]
-    [BenchmarkOrder(Priority = 2)]
-    public async Task<byte[]> UsingMemoryStreamAsync(Stream stream, string FileStreamOption, int FileSize)
-    {
-        var result = await stream.UsingMemoryStreamAsync();
-        stream.Position = 0;
-        return result;
-    }
+    //[Benchmark]
+    //[ArgumentsSource(nameof(GetAsyncParams))]
+    //[BenchmarkOrder(Priority = 2)]
+    //public async Task<byte[]> UsingMemoryStreamAsync(Stream stream, string FileStreamOption, int FileSize)
+    //{
+    //    var result = await stream.UsingMemoryStreamAsync();
+    //    stream.Position = 0;
+    //    return result;
+    //}
     #endregion
 
     [GlobalCleanup]
@@ -103,6 +113,7 @@ public class Benchmark
 
     #region Utils
     private static readonly IEnumerable<uint> lengths = [
+        3,
         4096,       //=> 4KB
         16384,      //=> 16KB
         81920,      //=> 80KB

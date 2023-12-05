@@ -1,10 +1,10 @@
 ﻿using Microsoft.IO;
 using System.Text;
 
-public static class StreamExtensions
+public static class StreamReadBytesExtensions
 {
-    #region UsingBinaryReader (Best Performance - Not Asyncable)
-    public static byte[] UsingBinaryReader(this Stream stream)
+    #region UsingBinaryReader_ReadBytes (Best Performance - Not Asyncable)
+    public static byte[] UsingBinaryReader_ReadBytes(this Stream stream)
     {
         if (stream is MemoryStream memory)
             return memory.ToArray();
@@ -51,8 +51,19 @@ public static class StreamExtensions
             return memory.ToArray();
 
         using var memoryStream = new MemoryStream();
-        stream.CopyTo(memoryStream);
+        stream.CopyTo(memoryStream); //DefaultCopyBufferSize = 81920
         return memoryStream.ToArray();
+    }
+
+    public static byte[] UsingMemoryStreamOptimized(this Stream stream)
+    {
+        if (stream is MemoryStream memory)
+            return memory.ToArray();
+
+        var length = (int)stream.Length;
+        using var memoryStream = new MemoryStream(capacity: length);
+        stream.CopyTo(memoryStream, length);
+        return memoryStream.GetBuffer();
     }
 
     public static async Task<byte[]> UsingMemoryStreamAsync(this Stream stream, CancellationToken cancellationToken = default)
@@ -62,9 +73,9 @@ public static class StreamExtensions
 
         using var memoryStream = new MemoryStream();
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
-        await stream.CopyToAsync(memoryStream, cancellationToken);
+        await stream.CopyToAsync(memoryStream, cancellationToken); //bufferSize = 81920
 #else
-        await stream.CopyToAsync(memoryStream, 81920, cancellationToken);
+        await stream.CopyToAsync(memoryStream, bufferSize: 81920, cancellationToken);
 #endif
         return memoryStream.ToArray();
     }

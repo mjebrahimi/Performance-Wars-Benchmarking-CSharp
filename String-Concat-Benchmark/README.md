@@ -19,3 +19,7 @@ string.Concat(arr);
 ```
 
 ![Benchmark](Benchmark.png)
+
+## Different methods to Create a String from Chars Array
+
+![Benchmark2](Benchmark2.png)

@@ -16,3 +16,15 @@
 3. UsingMemoryStream
 
 ![Benchmark](Benchmark.png)
+
+## Update
+
+Using **MemoryStream** with the following performs **faster and more GC efficient**
+
+- `capacity: stream.Length` instead of not specified capacity
+- `bufferSize: stream.Length` instead of not specified bufferSize (default buffer size is 81920)
+- `.GetBuffer()` instead of `.ToArray()`
+
+**Interesting** that `UsingMemoryStreamOptimized` is **faster** (is this case 2x faster) than anything else in **large** streams
+
+![Benchmark2](Benchmark2.png)
