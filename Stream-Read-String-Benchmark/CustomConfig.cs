@@ -23,7 +23,7 @@ public class CustomConfig : ManualConfig
                orderby
                    benchmark.Parameters["Language"],
                    Convert.ToInt32(benchmark.Parameters["TextLength"]),
-                   benchmark.Descriptor.WorkloadMethod.GetCustomAttribute<BenchmarkOrderAttribute>()?.Priority.ToString() ?? benchmark.Descriptor.WorkloadMethodDisplayInfo,
+                   benchmark.Descriptor.WorkloadMethod.GetCustomAttribute<BenchmarkOrderAttribute>()?.Priority.ToString() ?? "",
                    summary[benchmark]?.ResultStatistics?.Mean ?? 0
                select benchmark;
 
