@@ -17,6 +17,8 @@ public class Benchmark2
     private const int length = 1_000_000;
     private static readonly int[] arrayEmpty = [];
     private static readonly int[] arrayNotEmpty = [1, 2, 3];
+    private static readonly List<int> listEmpty = [];
+    private static readonly List<int> listNotEmpty = [1, 2, 3];
 
 #pragma warning disable S1481 // Unused local variables should be removed
 #pragma warning disable CA1822 // Mark members as static
@@ -40,6 +42,24 @@ public class Benchmark2
             var _ = arrayNotEmpty.IsNullOrEmpty_UsingTryGetNonEnumeratedCount();
         }
     }
+
+    [Benchmark(Description = "UsingTryGetNonEnumeratedCount"), BenchmarkCategory("List (Empty)")]
+    public void List_Empty_UsingTryGetNonEnumeratedCount()
+    {
+        for (int i = 0; i < length; i++)
+        {
+            var _ = listEmpty.IsNullOrEmpty_UsingTryGetNonEnumeratedCount();
+        }
+    }
+
+    [Benchmark(Description = "UsingTryGetNonEnumeratedCount"), BenchmarkCategory("List (NoEmpty)")]
+    public void List_NotEmpty_UsingTryGetNonEnumeratedCount()
+    {
+        for (int i = 0; i < length; i++)
+        {
+            var _ = listNotEmpty.IsNullOrEmpty_UsingTryGetNonEnumeratedCount();
+        }
+    }
     #endregion
 
     #region UsingPatternMatching_ForArray
@@ -58,6 +78,24 @@ public class Benchmark2
         for (int i = 0; i < length; i++)
         {
             var _ = arrayNotEmpty.IsNullOrEmpty_UsingPatternMatching_ForArray();
+        }
+    }
+
+    [Benchmark(Description = "UsingPatternMatching_ForArray"), BenchmarkCategory("List (Empty)")]
+    public void List_Empty_UsingPatternMatching_ForArray()
+    {
+        for (int i = 0; i < length; i++)
+        {
+            var _ = listEmpty.IsNullOrEmpty_UsingPatternMatching_ForArray();
+        }
+    }
+
+    [Benchmark(Description = "UsingPatternMatching_ForArray"), BenchmarkCategory("List (NoEmpty)")]
+    public void List_NotEmpty_UsingPatternMatching_ForArray()
+    {
+        for (int i = 0; i < length; i++)
+        {
+            var _ = listNotEmpty.IsNullOrEmpty_UsingPatternMatching_ForArray();
         }
     }
     #endregion
