@@ -49,7 +49,7 @@ namespace Replace_CharArray_Benchmark
 
         public static string UsingReplaceString(string data)
         {
-            if (string.IsNullOrWhiteSpace(data)) return string.Empty;
+            if (string.IsNullOrWhiteSpace(data)) return data;
             return data
                 .Replace("0", "\u06F0")
                 .Replace("1", "\u06F1")
@@ -65,7 +65,7 @@ namespace Replace_CharArray_Benchmark
 
         public static string UsingReplaceChar(string data)
         {
-            if (string.IsNullOrWhiteSpace(data)) return string.Empty;
+            if (string.IsNullOrWhiteSpace(data)) return data;
             return data
                 .Replace('0', '\u06F0')
                 .Replace('1', '\u06F1')
@@ -81,7 +81,7 @@ namespace Replace_CharArray_Benchmark
 
         public static string UsingStringBuilder(string data)
         {
-            if (string.IsNullOrWhiteSpace(data)) return string.Empty;
+            if (string.IsNullOrWhiteSpace(data)) return data;
 
             var strBuilder = new StringBuilder(data);
             for (var i = 0; i < strBuilder.Length; i++)
@@ -107,7 +107,7 @@ namespace Replace_CharArray_Benchmark
 
         public static string UsingStringCreate(string data)
         {
-            if (string.IsNullOrWhiteSpace(data)) return string.Empty;
+            if (string.IsNullOrWhiteSpace(data)) return data;
 
             return string.Create(data.Length, data, (chars, context) =>
             {
@@ -133,7 +133,7 @@ namespace Replace_CharArray_Benchmark
 
         public static string UsingToCharArray(string data)
         {
-            if (string.IsNullOrWhiteSpace(data)) return string.Empty;
+            if (string.IsNullOrWhiteSpace(data)) return data;
 
             var chars = data.ToCharArray();
             for (var i = 0; i < chars.Length; i++)
@@ -159,7 +159,7 @@ namespace Replace_CharArray_Benchmark
 
         public static string UsingSpan(string data)
         {
-            if (string.IsNullOrWhiteSpace(data)) return string.Empty;
+            if (string.IsNullOrWhiteSpace(data)) return data;
 
             Span<char> span = data.ToCharArray();
             for (int i = 0; i < span.Length; i++)
@@ -177,33 +177,6 @@ namespace Replace_CharArray_Benchmark
                     '8' => '\u06F8',
                     '9' => '\u06F9',
                     _ => span[i],
-                };
-            }
-
-            return new string(span);
-        }
-
-        public static string UsingSpanRef(string data)
-        {
-            if (string.IsNullOrWhiteSpace(data)) return string.Empty;
-
-            Span<char> span = data.ToCharArray();
-            for (int i = 0; i < span.Length; i++)
-            {
-                ref var ch = ref span[i];
-                ch = (ch) switch
-                {
-                    '0' => '\u06F0',
-                    '1' => '\u06F1',
-                    '2' => '\u06F2',
-                    '3' => '\u06F3',
-                    '4' => '\u06F4',
-                    '5' => '\u06F5',
-                    '6' => '\u06F6',
-                    '7' => '\u06F7',
-                    '8' => '\u06F8',
-                    '9' => '\u06F9',
-                    _ => ch,
                 };
             }
 

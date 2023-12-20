@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using Utilities;
 
 #if RELEASE
 //[DryJob] //Don't use for real benchmark (Just for Test)
@@ -39,12 +40,4 @@ public class Benchmark
     //Regex.IsMatch(str, "^Hello");
     //String.Compare(str, "Hello", StringComparison.Ordinal) == 0
     #endregion
-}
-
-public static class StringExtensions
-{
-    public static bool StartsWithSpan(this string str, ReadOnlySpan<char> value)
-    {
-        return str.AsSpan().StartsWith(value);
-    }
 }
