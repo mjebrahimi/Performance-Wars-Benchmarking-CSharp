@@ -1,45 +1,53 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
+using BenchmarkDotNet.Order;
+using System;
 using System.Text;
 
 namespace Replace_CharArray_Benchmark
 {
     [SimpleJob(RunStrategy.Throughput)]
-    [MemoryDiagnoser]
-    [KeepBenchmarkFiles(false)]
+    [MemoryDiagnoser(displayGenColumns: false)]
+    [Orderer(SummaryOrderPolicy.FastestToSlowest, MethodOrderPolicy.Declared)]
     public class Benchmark
     {
-        [Benchmark(Baseline = true)]
-        public void ToCharArray()
+        [Benchmark]
+        public string ToCharArray()
         {
-            UsingToCharArray("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
+            return UsingToCharArray("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
         }
 
         [Benchmark]
-        public void StringCreate()
+        public string StringCreate()
         {
-            UsingStringCreate("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
+            return UsingStringCreate("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
         }
 
         [Benchmark]
-        public void StringBuilder()
+        public string Span()
         {
-            UsingStringBuilder("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
+            return UsingSpan("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
         }
 
         [Benchmark]
-        public void ReplaceChar()
+        public string StringBuilder()
         {
-            UsingReplaceChar("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
+            return UsingStringBuilder("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
         }
 
         [Benchmark]
-        public void ReplaceString()
+        public string ReplaceChar()
         {
-            UsingReplaceString("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
+            return UsingReplaceChar("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
         }
 
-        private static string UsingReplaceString(string data)
+        [Benchmark]
+        public string ReplaceString()
+        {
+            return UsingReplaceString("abcdefghijklmnopqrstuvwxyz012345678901234567890123456789abcdefghijklmnopqrstuvwxyz");
+        }
+
+        public static string UsingReplaceString(string data)
         {
             if (string.IsNullOrWhiteSpace(data)) return string.Empty;
             return data
@@ -55,7 +63,7 @@ namespace Replace_CharArray_Benchmark
                 .Replace("9", "\u06F9");
         }
 
-        private static string UsingReplaceChar(string data)
+        public static string UsingReplaceChar(string data)
         {
             if (string.IsNullOrWhiteSpace(data)) return string.Empty;
             return data
@@ -71,7 +79,7 @@ namespace Replace_CharArray_Benchmark
                 .Replace('9', '\u06F9');
         }
 
-        private static string UsingStringBuilder(string data)
+        public static string UsingStringBuilder(string data)
         {
             if (string.IsNullOrWhiteSpace(data)) return string.Empty;
 
@@ -97,15 +105,15 @@ namespace Replace_CharArray_Benchmark
             return strBuilder.ToString();
         }
 
-        private static string UsingStringCreate(string data)
+        public static string UsingStringCreate(string data)
         {
             if (string.IsNullOrWhiteSpace(data)) return string.Empty;
 
             return string.Create(data.Length, data, (chars, context) =>
             {
-                for (int i = 0; i < data.Length; i++)
+                for (int i = 0; i < context.Length; i++)
                 {
-                    chars[i] = (data[i]) switch
+                    chars[i] = (context[i]) switch
                     {
                         '0' => '\u06F0',
                         '1' => '\u06F1',
@@ -117,13 +125,13 @@ namespace Replace_CharArray_Benchmark
                         '7' => '\u06F7',
                         '8' => '\u06F8',
                         '9' => '\u06F9',
-                        _ => data[i],
+                        _ => context[i],
                     };
                 }
             });
         }
 
-        private static string UsingToCharArray(string data)
+        public static string UsingToCharArray(string data)
         {
             if (string.IsNullOrWhiteSpace(data)) return string.Empty;
 
@@ -147,6 +155,59 @@ namespace Replace_CharArray_Benchmark
             }
 
             return new string(chars);
+        }
+
+        public static string UsingSpan(string data)
+        {
+            if (string.IsNullOrWhiteSpace(data)) return string.Empty;
+
+            Span<char> span = data.ToCharArray();
+            for (int i = 0; i < span.Length; i++)
+            {
+                span[i] = (span[i]) switch
+                {
+                    '0' => '\u06F0',
+                    '1' => '\u06F1',
+                    '2' => '\u06F2',
+                    '3' => '\u06F3',
+                    '4' => '\u06F4',
+                    '5' => '\u06F5',
+                    '6' => '\u06F6',
+                    '7' => '\u06F7',
+                    '8' => '\u06F8',
+                    '9' => '\u06F9',
+                    _ => span[i],
+                };
+            }
+
+            return new string(span);
+        }
+
+        public static string UsingSpanRef(string data)
+        {
+            if (string.IsNullOrWhiteSpace(data)) return string.Empty;
+
+            Span<char> span = data.ToCharArray();
+            for (int i = 0; i < span.Length; i++)
+            {
+                ref var ch = ref span[i];
+                ch = (ch) switch
+                {
+                    '0' => '\u06F0',
+                    '1' => '\u06F1',
+                    '2' => '\u06F2',
+                    '3' => '\u06F3',
+                    '4' => '\u06F4',
+                    '5' => '\u06F5',
+                    '6' => '\u06F6',
+                    '7' => '\u06F7',
+                    '8' => '\u06F8',
+                    '9' => '\u06F9',
+                    _ => ch,
+                };
+            }
+
+            return new string(span);
         }
     }
 }

@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Replace_CharArray_Benchmark</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>String_Replace_Benchmark</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
