@@ -3,6 +3,13 @@ using System.Text;
 
 public static class StreamReadBytesExtensions
 {
+    public static byte[] GetTrimmedBuffer(this MemoryStream stream)
+    {
+        var bytes = stream.GetBuffer();
+        Array.Resize(ref bytes, (int)stream.Length);
+        return bytes;
+    }
+
     #region UsingBinaryReader_ReadBytes (Best Performance - Not Asyncable)
     public static byte[] UsingBinaryReader_ReadBytes(this Stream stream)
     {
