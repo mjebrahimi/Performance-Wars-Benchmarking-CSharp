@@ -6,6 +6,7 @@ public static class ExpandoObjectExtensions
 {
     public static void SetProperty(this ExpandoObject expandoObj, string propertyName, object propertyValue)
     {
+        ArgumentNullException.ThrowIfNull(expandoObj);
         ArgumentException.ThrowIfNullOrWhiteSpace(propertyName);
 
         var expandoDict = expandoObj as IDictionary<string, object>;
@@ -14,6 +15,7 @@ public static class ExpandoObjectExtensions
 
     public static object GetProperty(this ExpandoObject expandoObj, string propertyName)
     {
+        ArgumentNullException.ThrowIfNull(expandoObj);
         ArgumentException.ThrowIfNullOrWhiteSpace(propertyName);
 
         var expandoDict = expandoObj as IDictionary<string, object>;
@@ -22,6 +24,7 @@ public static class ExpandoObjectExtensions
 
     public static void RemoveProperty(this ExpandoObject expandoObj, string propertyName)
     {
+        ArgumentNullException.ThrowIfNull(expandoObj);
         ArgumentException.ThrowIfNullOrWhiteSpace(propertyName);
 
         var expandoDict = expandoObj as IDictionary<string, object>;
@@ -30,6 +33,7 @@ public static class ExpandoObjectExtensions
 
     public static void ChangeProperty(this ExpandoObject expandoObj, string fromPropertyName, string toPropertyName)
     {
+        ArgumentNullException.ThrowIfNull(expandoObj);
         ArgumentException.ThrowIfNullOrWhiteSpace(fromPropertyName);
         ArgumentException.ThrowIfNullOrWhiteSpace(toPropertyName);
 
@@ -43,6 +47,7 @@ public static class ExpandoObjectExtensions
 
     public static void RemovePropertiesExcept(this ExpandoObject expandoObj, IEnumerable<string> propertyNames)
     {
+        ArgumentNullException.ThrowIfNull(expandoObj);
         EnumerableGuard.ThrowIfNullOrEmpty(propertyNames);
 
         var expandoDict = expandoObj as IDictionary<string, object>;

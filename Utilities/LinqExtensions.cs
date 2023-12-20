@@ -12,6 +12,9 @@ public static class LinqExtensions
     /// <returns></returns>
     public static IEnumerable<List<T>> SplitBy<T>(this IEnumerable<T> source, Func<T, bool> condition, bool removeEmptyLists = true)
     {
+        ArgumentNullException.ThrowIfNull(source);
+        ArgumentNullException.ThrowIfNull(condition);
+
         if (removeEmptyLists)
         {
             //for example calling new[] { 0, 0, 1, 2, 0, 0, 3, 4, 0, 0 }.SplitBy(p => p == 0) must returns [ [1,2], [3,4] ]

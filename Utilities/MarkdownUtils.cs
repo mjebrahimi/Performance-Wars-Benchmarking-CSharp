@@ -10,13 +10,10 @@ public static partial class MarkdownUtils
 
     public static List<ExpandoObject> JoinMarkdownReports(IEnumerable<string> markdownTables, string[] equalityColumns, string pivotColumn, string commonColumn, bool colorize = false)
     {
-        if (markdownTables?.Any() != true)
-            throw new ArgumentException("Argument is null or empty.", nameof(markdownTables));
-        if (equalityColumns is not { Length: > 0 })
-            throw new ArgumentException("Argument is null or empty.", nameof(equalityColumns));
-
-        ArgumentException.ThrowIfNullOrWhiteSpace(nameof(equalityColumns));
-        ArgumentException.ThrowIfNullOrWhiteSpace(nameof(commonColumn));
+        EnumerableGuard.ThrowIfNullOrEmpty(markdownTables);
+        EnumerableGuard.ThrowIfNullOrEmpty(equalityColumns);
+        ArgumentException.ThrowIfNullOrWhiteSpace(pivotColumn);
+        ArgumentException.ThrowIfNullOrWhiteSpace(commonColumn);
 
         var parsedTables = markdownTables.Select(ParseMarkdownTable).ToArray();
         if (colorize)
@@ -130,20 +127,25 @@ public static partial class MarkdownUtils
 
     public static void SaveAsMarkdownTable(this IEnumerable<ExpandoObject> source, string path)
     {
+        EnumerableGuard.ThrowIfNullOrEmpty(source);
+        ArgumentException.ThrowIfNullOrWhiteSpace(path);
+
         var text = source.ToMarkdownTable();
         File.WriteAllText(path, text);
     }
 
     public static void SaveAsMarkdownTable<T>(this IEnumerable<T> source, string path)
     {
+        EnumerableGuard.ThrowIfNullOrEmpty(source);
+        ArgumentException.ThrowIfNullOrWhiteSpace(path);
+
         var text = source.ToMarkdownTable();
         File.WriteAllText(path, text);
     }
 
     public static string ToMarkdownTable(this IEnumerable<ExpandoObject> source)
     {
-        if (source?.Any() != true)
-            throw new ArgumentException("Is null or empty.", nameof(source));
+        EnumerableGuard.ThrowIfNullOrEmpty(source);
 
         var items = source.Select(p => (IDictionary<string, object>)p!);
         var columnNames = items.ElementAt(0)!.Keys;
@@ -173,8 +175,7 @@ public static partial class MarkdownUtils
 
     public static string ToMarkdownTable<T>(this IEnumerable<T> source)
     {
-        if (source?.Any() != true)
-            throw new ArgumentException("Is null or empty.", nameof(source));
+        EnumerableGuard.ThrowIfNullOrEmpty(source);
 
         var properties = typeof(T).GetRuntimeProperties();
         var fields = typeof(T).GetRuntimeFields().Where(f => f.IsPublic);
@@ -211,6 +212,8 @@ public static partial class MarkdownUtils
 
     public static List<T> ParseMarkdownTable<T>(string markdownTable) where T : new()
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(markdownTable);
+
         var objects = new List<T>();
 
         // Extract the table rows from the Markdown table
@@ -268,6 +271,8 @@ public static partial class MarkdownUtils
 
     public static List<ExpandoObject> ParseMarkdownTable(string markdownTable)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(markdownTable);
+
         var objects = new List<ExpandoObject>();
 
         // Extract the table rows from the Markdown table
@@ -339,6 +344,8 @@ public static partial class MarkdownUtils
 
     private static decimal ExtractNumber(string input)
     {
+        ArgumentNullException.ThrowIfNull(input);
+
         var value = GetExtractNumberRegex().Match(input).Value;
         return decimal.Parse(value);
     }

@@ -12,6 +12,10 @@ public static class BenchmarkExtensions
     public static async Task JoinReportsAndSaveAsImageAsync(this Summary[] summaries, string title, string[] equalityColumns, string pivotColumn, string commonColumn, bool colorize = true, string fileName = "benchmark.png")
     {
         EnumerableGuard.ThrowIfNullOrEmpty(summaries);
+        ArgumentException.ThrowIfNullOrWhiteSpace(title);
+        EnumerableGuard.ThrowIfNullOrEmpty(equalityColumns);
+        ArgumentException.ThrowIfNullOrWhiteSpace(pivotColumn);
+        ArgumentException.ThrowIfNullOrWhiteSpace(commonColumn);
         ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
 
         var html = JoinReportsAsHtml(summaries, title, equalityColumns, pivotColumn, commonColumn, colorize);
@@ -25,6 +29,10 @@ public static class BenchmarkExtensions
     public static Task JoinReportsAndSaveAsHtmlAsync(this Summary[] summaries, string title, string[] equalityColumns, string pivotColumn, string commonColumn, bool colorize = true, string fileName = "index.html")
     {
         EnumerableGuard.ThrowIfNullOrEmpty(summaries);
+        ArgumentException.ThrowIfNullOrWhiteSpace(title);
+        EnumerableGuard.ThrowIfNullOrEmpty(equalityColumns);
+        ArgumentException.ThrowIfNullOrWhiteSpace(pivotColumn);
+        ArgumentException.ThrowIfNullOrWhiteSpace(commonColumn);
         ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
 
         var html = JoinReportsAsHtml(summaries, title, equalityColumns, pivotColumn, commonColumn, colorize);
@@ -36,6 +44,10 @@ public static class BenchmarkExtensions
     public static Task JoinReportsAndSaveAsMarkdownAsync(this Summary[] summaries, string title, string[] equalityColumns, string pivotColumn, string commonColumn, string fileName = "README.md")
     {
         EnumerableGuard.ThrowIfNullOrEmpty(summaries);
+        ArgumentException.ThrowIfNullOrWhiteSpace(title);
+        EnumerableGuard.ThrowIfNullOrEmpty(equalityColumns);
+        ArgumentException.ThrowIfNullOrWhiteSpace(pivotColumn);
+        ArgumentException.ThrowIfNullOrWhiteSpace(commonColumn);
         ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
 
         var markdown = JoinReportsAsMarkdown(summaries, title, equalityColumns, pivotColumn, commonColumn);
@@ -47,6 +59,7 @@ public static class BenchmarkExtensions
     public static Task ConcatReportsAndSaveAsMarkdownAsync(this Summary[] summaries, string title, string fileName = "README.md")
     {
         EnumerableGuard.ThrowIfNullOrEmpty(summaries);
+        ArgumentException.ThrowIfNullOrWhiteSpace(title);
         ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
 
         var markdown = ConcatReportsAsMarkdown(summaries, title);
@@ -58,8 +71,8 @@ public static class BenchmarkExtensions
     public static string JoinReportsAsHtml(this Summary[] summaries, string title, string[] equalityColumns, string pivotColumn, string commonColumn, bool colorize = true)
     {
         EnumerableGuard.ThrowIfNullOrEmpty(summaries);
-        EnumerableGuard.ThrowIfNullOrEmpty(equalityColumns);
         ArgumentException.ThrowIfNullOrWhiteSpace(title);
+        EnumerableGuard.ThrowIfNullOrEmpty(equalityColumns);
         ArgumentException.ThrowIfNullOrWhiteSpace(pivotColumn);
         ArgumentException.ThrowIfNullOrWhiteSpace(commonColumn);
 

@@ -9,8 +9,9 @@ public class ColorUtils
     /// <returns>Hex color value</returns>
     public static string GetColorBetweenRedAndGreen(float value)
     {
-        // value must be between [0, 510]
-        value = Math.Min(Math.Max(0, value), 1) * 510;
+        RangeGuard.ThrowIfNotInRange(value, 0.0, 1.0);
+
+        value *= 510;// value must be between [0, 510]
 
         double redValue;
         double greenValue;
@@ -34,32 +35,44 @@ public class ColorUtils
     public static string Lighten(string color, double amount = 0.5)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(color);
+        RangeGuard.ThrowIfNotInRange(amount, 0.0, 1.0);
+
         return MixColors(color, "#fff", amount);
     }
 
     public static string Darken(string color, double amount = 0.5)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(color);
+        RangeGuard.ThrowIfNotInRange(amount, 0.0, 1.0);
+
         return MixColors(color, "#000", amount);
     }
 
     public static string MixColors(string colorA, string colorB, double amount = 0.5)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(colorA);
+        ArgumentException.ThrowIfNullOrWhiteSpace(colorB);
+        RangeGuard.ThrowIfNotInRange(amount, 0.0, 1.0);
+
         var rgbA = HexToRGB(colorA);
         var rgbB = HexToRGB(colorB);
 
-        var mixedColor = rgbA.Select((channelA, index) => MixChannels(channelA, rgbB[index], amount)).ToArray();
+        var mixedColor = rgbA.Select((_, index) => MixChannels(rgbA[index], rgbB[index], amount)).ToArray();
 
         return "#" + string.Concat(mixedColor.Select(p => p.ToString("X2")));
     }
 
     public static int[] HexToRGB(string hexColor)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(hexColor);
+
         return GetChannels(hexColor).Select(p => Convert.ToInt32(p, 16)).ToArray();
     }
 
     public static string[] GetChannels(string hexColor)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(hexColor);
+
         if (hexColor[0] is '#')
             hexColor = hexColor[1..];
 
@@ -73,6 +86,8 @@ public class ColorUtils
 
     public static int MixChannels(int channelA, int channelB, double amount)
     {
+        RangeGuard.ThrowIfNotInRange(amount, 0.0, 1.0);
+
         var a = channelA * (1 - amount);
         var b = channelB * amount;
         return Convert.ToInt32(a + b);

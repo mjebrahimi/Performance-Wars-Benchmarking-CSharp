@@ -249,6 +249,7 @@ public static class ImageCompressor
         /// <returns></returns>
         public static byte[] CompressJpeg(ReadOnlySpan<byte> bytes, int quality = 80)
         {
+            if (bytes.Length == 0) throw new ArgumentException("Argument is empty.", nameof(bytes));
             RangeGuard.ThrowIfNotInRange(quality, 0, 100);
 
             using var bitmap = SKBitmap.Decode(bytes);
@@ -264,6 +265,7 @@ public static class ImageCompressor
         /// <returns></returns>
         public static byte[] CompressPng(ReadOnlySpan<byte> bytes, int quality = 80)
         {
+            if (bytes.Length == 0) throw new ArgumentException("Argument is empty.", nameof(bytes));
             RangeGuard.ThrowIfNotInRange(quality, 0, 100);
 
             using var bitmap = SKBitmap.Decode(bytes);
@@ -279,6 +281,7 @@ public static class ImageCompressor
         /// <returns></returns>
         public static byte[] CompressWebp(ReadOnlySpan<byte> bytes, int quality = 80)
         {
+            if (bytes.Length == 0) throw new ArgumentException("Argument is empty.", nameof(bytes));
             RangeGuard.ThrowIfNotInRange(quality, 0, 100);
 
             using var bitmap = SKBitmap.Decode(bytes);

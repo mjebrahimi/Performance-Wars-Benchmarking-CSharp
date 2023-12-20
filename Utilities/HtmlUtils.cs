@@ -81,6 +81,7 @@ public static partial class HtmlUtils
 
     public static void SaveAsHtmlTable(this IEnumerable<ExpandoObject> source, string path, bool appendCSS = true)
     {
+        EnumerableGuard.ThrowIfNullOrEmpty(source);
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
 
         var text = source.ToHtmlTable(appendCSS);
@@ -89,6 +90,7 @@ public static partial class HtmlUtils
 
     public static void SaveAsHtmlTable<T>(this IEnumerable<T> source, string path, bool appendCSS = true)
     {
+        EnumerableGuard.ThrowIfNullOrEmpty(source);
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
 
         var text = source.ToHtmlTable(appendCSS);

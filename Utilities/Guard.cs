@@ -22,6 +22,23 @@ public static class EnumerableGuard
             throw new ArgumentException("Argument is empty.", paramName);
         }
     }
+
+    /// <summary>Throws an exception if <paramref name="argument"/> is empty.</summary>
+    /// <param name="argument">The argument to validate as non-empty.</param>
+    /// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+    /// <exception cref="ArgumentException"></exception>
+    public static void ThrowIfEmpty<T>(IEnumerable<T> argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
+    {
+        if (argument is null) return;
+
+        //Performance Tip: using pattern matching on array is faster than TryGetNonEnumeratedCount
+        if (argument is Array and { Length: 0 }
+            || (argument.TryGetNonEnumeratedCount(out var count) && count == 0)
+            || argument.Any() is false)
+        {
+            throw new ArgumentException("Argument is empty.", paramName);
+        }
+    }
 }
 
 public static class RangeGuard
