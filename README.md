@@ -4,7 +4,7 @@
 2.  [for vs foreach vs ForEach() Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/For-ForEach-Benchmark)
 3.  [Reflection/Class vs NonReflection/Struct Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Reflection-NonReflection-Benchmark)
 4.  [Normal flow vs Throw Exception Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Throw-Exception-Benchmark)
-5.  [string Replace vs ToCharArray vs Span](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Replace-CharArray-Benchmark)
+5.  [String Replace Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/String-Replace-Benchmark)
 6.  [Ctor Instantiate vs Lazy Instantiaten](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/New-Lazy-Instantiate)
 7.  [Prometheus-net metrics Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Metrics-Benchmark)
 8.  [PropertyGetter Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Property-Getter-Benchmark)
@@ -19,6 +19,10 @@
 17.  [Stream Read String Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Stream-Read-String-Benchmark)
 18.  [Array Allocating Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Array-Allocating-Benchmark)
 19.  [Array Resizing Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Array-Resizing-Benchmark)
+20.  [String StartWith Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/String-StartWith-Benchmark)
+21.  [GetHashCode and Equals Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/GetHashCode-Equals-Benchmark)
+22.  [Enumerable NullOrEmpty Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Enumerable-NullOrEmpty-Benchmark)
+23.  [DotNet Collections Benchmark](https://github.com/mjebrahimi/DotNet-Collections-Benchmark/)
 
 ## Useful Resources
 https://github.com/martinstm/benchmarks
