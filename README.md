@@ -22,7 +22,7 @@
 20.  [String StartWith Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/String-StartWith-Benchmark)
 21.  [GetHashCode and Equals Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/GetHashCode-Equals-Benchmark)
 22.  [Enumerable NullOrEmpty Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Enumerable-NullOrEmpty-Benchmark)
-23.  [DotNet Collections Benchmark](https://github.com/mjebrahimi/DotNet-Collections-Benchmark/)
+23.  [.NET Collections Benchmark](https://github.com/mjebrahimi/DotNet-Collections-Benchmark/)
 
 ## Useful Resources
 https://github.com/martinstm/benchmarks
