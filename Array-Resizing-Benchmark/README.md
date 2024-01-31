@@ -1,4 +1,4 @@
-# Different ways Resize an Array
+# Different ways to Resize an Array
 
 ## Key Results
 
