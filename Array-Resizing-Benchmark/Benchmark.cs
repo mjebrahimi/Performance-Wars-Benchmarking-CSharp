@@ -1,89 +1,131 @@
 ﻿using BenchmarkDotNet.Attributes;
+using System.Runtime.CompilerServices;
 
 #if RELEASE
-//[DryJob] //Don't use for real benchmark (Just for Test)
-[ShortRunJob]
-//[SimpleJob(BenchmarkDotNet.Engines.RunStrategy.Throughput)]
+//[ShortRunJob]
+[SimpleJob(BenchmarkDotNet.Engines.RunStrategy.Throughput)]
 #endif
 [Config(typeof(CustomConfig))]
-[HideColumns("array", "newSize")]
+[HideColumns("array", "length")]
 [MemoryDiagnoser(displayGenColumns: false)]
 [KeepBenchmarkFiles(false)]
 public class Benchmark
 {
-
     [Benchmark]
     [ArgumentsSource(nameof(GetParams))]
-    public byte[] Array_Resize(ref byte[] array, int newSize, string Kind)
+    public byte[] Array_Resize(ref byte[] array, int length, string Kind)
     {
         //It just Resize the array, not creating a new array, But others create a new array
-        Array.Resize(ref array, newSize);
+        Array.Resize(ref array, length);
         return array;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(GetParams))]
-    public byte[] Array_Copy(ref byte[] array, int newSize, string Kind)
+    public byte[] Array_Copy(ref byte[] array, int length, string Kind)
     {
-        var newArray = new byte[newSize];
-        Array.Copy(array, newArray, newSize);
+        var newArray = new byte[length];
+        Array.Copy(array, newArray, length);
         return newArray;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(GetParams))]
-    public byte[] Buffer_BlockCopy(ref byte[] array, int newSize, string Kind)
+    public byte[] Buffer_BlockCopy(ref byte[] array, int length, string Kind)
     {
-        var newArray = new byte[newSize];
-        Buffer.BlockCopy(array, 0, newArray, 0, newSize);
+        var newArray = new byte[length];
+        Buffer.BlockCopy(array, 0, newArray, 0, length);
         return newArray;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(GetParams))]
-    public byte[] Span_CopyTo(ref byte[] array, int newSize, string Kind)
+    public byte[] Span_Slice_ToArray(ref byte[] array, int length, string Kind)
     {
-        var newArray = new byte[newSize];
-        ((ReadOnlySpan<byte>)array)[..newSize].CopyTo(newArray);
+#pragma warning disable IDE0057 // Use range operator
+        return ((ReadOnlySpan<byte>)array).Slice(0, length).ToArray();
+#pragma warning restore IDE0057 // Use range operator
+    }
+
+    [Benchmark]
+    [ArgumentsSource(nameof(GetParams))]
+    public byte[] Span_Slice_CopyTo(ref byte[] array, int length, string Kind)
+    {
+        var newArray = new byte[length];
+#pragma warning disable IDE0057 // Use range operator
+        ((ReadOnlySpan<byte>)array).Slice(0, length).CopyTo(newArray);
+#pragma warning restore IDE0057 // Use range operator
         return newArray;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(GetParams))]
-    public byte[] Span_CopyTo_ToArray(ref byte[] array, int newSize, string Kind)
+    public byte[] Span_CollectionExpression_ToArray(ref byte[] array, int length, string Kind)
     {
-        Span<byte> newArray = new byte[newSize];
-        ((ReadOnlySpan<byte>)array)[..newSize].CopyTo(newArray);
-        return newArray.ToArray();
+        return ((ReadOnlySpan<byte>)array)[..length].ToArray();
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(GetParams))]
-    public byte[] Linq_Take_ToArray(ref byte[] array, int newSize, string Kind)
+    public byte[] Span_CollectionExpression_CopyTo(ref byte[] array, int length, string Kind)
     {
-        return array.Take(newSize).ToArray();
-
+        var newArray = new byte[length];
+        ((ReadOnlySpan<byte>)array)[..length].CopyTo(newArray);
+        return newArray;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(GetParams))]
-    public byte[] ArraySegment_ToArray(ref byte[] array, int newSize, string Kind)
+    public byte[] RuntimeHelpers_GetSubArray(ref byte[] array, int length, string Kind)
     {
-        var segment = new ArraySegment<byte>(array, 0, newSize);
+        return RuntimeHelpers.GetSubArray(array, ..length);
+    }
+
+    [Benchmark]
+    [ArgumentsSource(nameof(GetParams))]
+    public byte[] Array_CollectionExpression(ref byte[] array, int length, string Kind)
+    {
+        return array[..length];
+    }
+
+    [Benchmark]
+    [ArgumentsSource(nameof(GetParams))]
+    public byte[] Array_CollectionExpression_ToArray(ref byte[] array, int length, string Kind)
+    {
+#pragma warning disable IDE0305 // Simplify collection initialization
+        return array[..length].ToArray();
+#pragma warning restore IDE0305 // Simplify collection initialization
+    }
+
+    [Benchmark]
+    [ArgumentsSource(nameof(GetParams))]
+    public byte[] ArraySegment_ToArray(ref byte[] array, int length, string Kind)
+    {
+        var segment = new ArraySegment<byte>(array, 0, length);
+#pragma warning disable IDE0305 // Simplify collection initialization
         return segment.ToArray();
+#pragma warning restore IDE0305 // Simplify collection initialization
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(GetParams))]
-    public byte[] ArraySegment_CollectionExpression(ref byte[] array, int newSize, string Kind)
+    public byte[] ArraySegment_CollectionExpression(ref byte[] array, int length, string Kind)
     {
-        var segment = new ArraySegment<byte>(array, 0, newSize);
+        var segment = new ArraySegment<byte>(array, 0, length);
         return [.. segment];
+    }
+
+
+    [Benchmark]
+    [ArgumentsSource(nameof(GetParams))]
+    public byte[] Linq_Take_ToArray(ref byte[] array, int length, string Kind)
+    {
+        return array.Take(length).ToArray();
     }
 
     //[Benchmark]
     //[ArgumentsSource(nameof(GetParams))]
-    //public byte[] SpanTrim(ref byte[] array, int newSize)
+    //public byte[] SpanTrim(ref byte[] array, int length)
     //{
     //    var newArray = ((ReadOnlySpan<byte>)array).Trim((byte)0);
     //    return newArray.ToArray();

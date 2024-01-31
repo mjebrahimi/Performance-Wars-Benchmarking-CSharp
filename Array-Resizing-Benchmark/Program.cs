@@ -1,23 +1,32 @@
-﻿using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNetVisualizer;
 
-#if DEBUG
+#region Create form Artifacts result
+var benchmarkInfo = BenchmarkInfo.CreateFromFile(Path.Combine(DirectoryHelper.GetProjectBenchmarkArtifactResultsDirectory(), "Benchmark-report-github.md"));
+await VisualizeAsync(benchmarkInfo);
+return;
+#endregion
 
-Console.ForegroundColor = ConsoleColor.Yellow;
-Console.WriteLine("***** To achieve accurate results, set project configuration to Release mode. *****");
+var summary = BenchmarkAutoRunner.Run<Benchmark>();
 
-Console.ForegroundColor = ConsoleColor.Red;
-Console.WriteLine("***** Waite 3 seconds for DEBUG MODE! *****");
+DirectoryHelper.MoveBenchmarkArtifactsToProjectDirectory();
 
-Thread.Sleep(3000);
-
-//BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, new BenchmarkDotNet.Configs.DebugInProcessConfig()); //For Debugging
-BenchmarkRunner.Run<Benchmark>(new BenchmarkDotNet.Configs.DebugInProcessConfig());
-
-#else
-
-//BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args); //InProcessEmitToolchain or InProcessNoEmitToolchain
-BenchmarkRunner.Run<Benchmark>();
-
-#endif
+await VisualizeAsync(summary.GetBenchmarkInfo());
 
 Console.ReadLine();
+
+async Task VisualizeAsync(BenchmarkInfo benchmarkInfo)
+{
+    var htmlPath = DirectoryHelper.GetPathRelativeToProjectDirectory("Benchmark.html");
+    var imagePath = DirectoryHelper.GetPathRelativeToProjectDirectory("Benchmark.png");
+    var options = new ReportHtmlOptions
+    {
+        Title = "Different ways to Resize an Array",
+        HighlightGroups = false,
+        SortByColumns = ["Mean"],
+        SpectrumColumns = ["Mean"],
+        DividerMode = RenderTableDividerMode.SeparateTables,
+        HtmlWrapMode = HtmlDocumentWrapMode.RichDataTables
+    };
+    await benchmarkInfo.SaveAsHtmlAndImageAsync(htmlPath, imagePath, options);
+
+}

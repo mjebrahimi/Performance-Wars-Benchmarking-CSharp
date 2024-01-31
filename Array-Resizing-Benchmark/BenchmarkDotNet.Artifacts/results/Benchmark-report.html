@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Benchmark-20240131-192543</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet v0.13.12, Windows 11 (10.0.22631.3085/23H2/2023Update/SunValley3)
+AMD Ryzen 7 5800H with Radeon Graphics, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 8.0.101
+  [Host]     : .NET 8.0.1 (8.0.123.58001), X64 RyuJIT AVX2
+  Job-ELPGOX : .NET 8.0.1 (8.0.123.58001), X64 RyuJIT AVX2
+</code></pre>
+<pre><code>RunStrategy=Throughput  array=Byte[2000]  newSize=1000  
+</code></pre>
+
+<table>
+<thead><tr><th>Method                      </th><th>Kind</th><th>Mean  </th><th>Error</th><th>StdDev</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Array_Resize</td><td>Decrease</td><td>2.083 ns</td><td>0.0562 ns</td><td>0.0526 ns</td><td>-</td>
+</tr><tr><td>Array_CollectionExpression</td><td>Decrease</td><td>43.583 ns</td><td>0.8835 ns</td><td>0.8264 ns</td><td>1024 B</td>
+</tr><tr><td>RuntimeHelpers_GetSubArray</td><td>Decrease</td><td>44.885 ns</td><td>0.6604 ns</td><td>0.5854 ns</td><td>1024 B</td>
+</tr><tr><td>Array_Copy</td><td>Decrease</td><td>45.472 ns</td><td>0.7345 ns</td><td>0.6511 ns</td><td>1024 B</td>
+</tr><tr><td>Span_CollectionExpression_CopyTo</td><td>Decrease</td><td>46.310 ns</td><td>0.6745 ns</td><td>0.6309 ns</td><td>1024 B</td>
+</tr><tr><td>ArraySegment_ToArray</td><td>Decrease</td><td>46.774 ns</td><td>0.7873 ns</td><td>0.6980 ns</td><td>1024 B</td>
+</tr><tr><td>Span_Slice_ToArray</td><td>Decrease</td><td>47.727 ns</td><td>0.8822 ns</td><td>1.0502 ns</td><td>1024 B</td>
+</tr><tr><td>Span_Slice_CopyTo</td><td>Decrease</td><td>48.067 ns</td><td>0.8410 ns</td><td>0.8637 ns</td><td>1024 B</td>
+</tr><tr><td>Span_CollectionExpression_ToArray</td><td>Decrease</td><td>48.591 ns</td><td>1.0134 ns</td><td>0.9480 ns</td><td>1024 B</td>
+</tr><tr><td>Buffer_BlockCopy</td><td>Decrease</td><td>48.646 ns</td><td>0.9990 ns</td><td>1.0689 ns</td><td>1024 B</td>
+</tr><tr><td>Array_CollectionExpression_ToArray</td><td>Decrease</td><td>110.881 ns</td><td>1.5986 ns</td><td>3.9215 ns</td><td>2048 B</td>
+</tr><tr><td>ArraySegment_CollectionExpression</td><td>Decrease</td><td>899.541 ns</td><td>6.8870 ns</td><td>6.4421 ns</td><td>1024 B</td>
+</tr><tr><td>Linq_Take_ToArray</td><td>Decrease</td><td>2,022.878 ns</td><td>39.2665 ns</td><td>43.6446 ns</td><td>1072 B</td>
+</tr></tbody></table>
+</body>
+</html>
