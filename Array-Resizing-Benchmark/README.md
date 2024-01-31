@@ -15,4 +15,4 @@
    - Span_CollectionExpression_CopyTo `((ReadOnlySpan<byte>)array)[..length].CopyTo(newArray)`
 3. `Linq_Take_ToArray` is **the slowest**
 
-[![Benchmark](Benchmark.png)](/Benchmark.html)
+[![Benchmark](Benchmark.png)](Benchmark.html)
