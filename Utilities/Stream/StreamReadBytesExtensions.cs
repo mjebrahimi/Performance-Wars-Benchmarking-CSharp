@@ -5,8 +5,10 @@ public static class StreamReadBytesExtensions
 {
     public static byte[] GetTrimmedBuffer(this MemoryStream stream)
     {
+        var length = (int)stream.Length;
         var bytes = stream.GetBuffer();
-        Array.Resize(ref bytes, (int)stream.Length);
+        if (length < bytes.Length)
+            Array.Resize(ref bytes, length);
         return bytes;
     }
 

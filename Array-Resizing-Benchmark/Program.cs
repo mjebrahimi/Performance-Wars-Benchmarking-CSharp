@@ -28,5 +28,4 @@ async Task VisualizeAsync(BenchmarkInfo benchmarkInfo)
         HtmlWrapMode = HtmlDocumentWrapMode.RichDataTables
     };
     await benchmarkInfo.SaveAsHtmlAndImageAsync(htmlPath, imagePath, options);
-
 }
