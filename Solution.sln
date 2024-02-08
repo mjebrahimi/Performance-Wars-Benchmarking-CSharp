@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enumerable-NullOrEmpty-Benc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{48523C4D-7F27-4BA9-AC6B-4475521A3C88}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Convert-Enum-To-String-Benchmark", "Convert-Enum-To-String-Benchmark\Convert-Enum-To-String-Benchmark.csproj", "{E9975C9F-F9BB-42A9-B309-204E52958A9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +245,14 @@ Global
 		{FB7B49D2-8D0A-4D7A-98CC-ABF342B0415E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FB7B49D2-8D0A-4D7A-98CC-ABF342B0415E}.Release|x64.ActiveCfg = Release|Any CPU
 		{FB7B49D2-8D0A-4D7A-98CC-ABF342B0415E}.Release|x64.Build.0 = Release|Any CPU
+		{E9975C9F-F9BB-42A9-B309-204E52958A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9975C9F-F9BB-42A9-B309-204E52958A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9975C9F-F9BB-42A9-B309-204E52958A9F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E9975C9F-F9BB-42A9-B309-204E52958A9F}.Debug|x64.Build.0 = Debug|Any CPU
+		{E9975C9F-F9BB-42A9-B309-204E52958A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9975C9F-F9BB-42A9-B309-204E52958A9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9975C9F-F9BB-42A9-B309-204E52958A9F}.Release|x64.ActiveCfg = Release|Any CPU
+		{E9975C9F-F9BB-42A9-B309-204E52958A9F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
