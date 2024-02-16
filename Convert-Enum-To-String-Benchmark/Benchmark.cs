@@ -1,10 +1,19 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Order;
+using BenchmarkDotNetVisualizer;
 
 namespace Convert_Enum_To_String_Benchmark;
 
-[SimpleJob(RunStrategy.Throughput)]
+[RichImageExporter(title: "Converting Enum To A String Benchmarks", groupByColumns: ["Method"], spectrumColumns: ["Mean", "Allocated"])]
+[RichHtmlExporter(title: "Converting Enum To A String Benchmarks", groupByColumns: ["Method"], spectrumColumns: ["Mean", "Allocated"])]
+[RichMarkdownExporter(title: "Converting Enum To A String Benchmarks", groupByColumns: ["Method"], sortByColumns: ["Mean", "Allocated"])]
+
+
+#if RELEASE
+[ShortRunJob]
+#endif
+
 [MemoryDiagnoser(displayGenColumns: false)]
 [Orderer(SummaryOrderPolicy.FastestToSlowest)]
 public class Benchmark
