@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Converting Enum To A String Benchmarks</title>
+<style type="text/css">
+    body { font-family: system-ui; padding: 0 30px 30px 30px; width: min-content; display: inline-block; }
+    h1, h2 { border-bottom: solid 1px #D8DEE4;}
+    h1, h2, h3 { padding-bottom: 0.3em; }
+    table { border-collapse: collapse !important; margin-top: 3px !important; width: 100%; display: inline-table; margin-bottom: 20px !important; }
+    td, th { padding: 6px 13px; border: 1px solid #CCC; text-align: right; white-space: nowrap; }
+    tr { background-color: #FFF !important; border-top: 1px solid #CCC; }
+    tr:nth-child(even):not(.divider) { background: #F8F8F8 !important; }
+    tr.divider { border: 0; font-size: 10px; }
+    tr.divider td { padding: 0; border: 0; }
+    pre { background: #EFEFEF; padding: 0 1em; }
+    thead th { background-color: #EFEFEF; }
+    tbody tr:not(.divider):hover { background-color: #EFEFEF !important; border: 2px solid #ADADAD; }
+    .powered-by { text-align: center; margin-bottom: -20px !important; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>Converting Enum To A String Benchmarks</h1>
+<pre>
+<code>
+BenchmarkDotNet v0.13.12, Windows 10 (10.0.19045.3930/22H2/2022Update)
+Intel Core i3-9100 CPU 3.60GHz, 1 CPU, 4 logical and 4 physical cores
+.NET SDK 8.0.102
+  [Host]   : .NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
+  ShortRun : .NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
+
+Job=ShortRun  IterationCount=3  LaunchCount=1  
+WarmupCount=3
+</code>
+</pre>
+<h2>Benchmark</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Allocated</th></tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left; background-color: #FFCCFF"><strong>NameOf()</strong></td>
+<td style="background-color: #99FF99"><strong>0.4186 ns</strong></td>
+<td><strong>0.0238 ns</strong></td>
+<td><strong>0.0013 ns</strong></td>
+<td style="text-align: left; background-color: #99FF99"><strong>-</strong></td>
+</tr>
+<tr class="divider">
+<td colspan="5">&nbsp;</td>
+</tr>
+<tr class="divider">
+<td colspan="5"></td>
+</tr>
+<tr>
+<td style="text-align: left; background-color: #CCFFFF"><strong>Enum_GetName()_FirstOverload</strong></td>
+<td style="background-color: #99FF99"><strong>2.4360 ns</strong></td>
+<td><strong>0.5365 ns</strong></td>
+<td><strong>0.0294 ns</strong></td>
+<td style="text-align: left; background-color: #99FF99"><strong>-</strong></td>
+</tr>
+<tr class="divider">
+<td colspan="5">&nbsp;</td>
+</tr>
+<tr class="divider">
+<td colspan="5"></td>
+</tr>
+<tr>
+<td style="text-align: left; background-color: #FFCCFF"><strong>ToString()</strong></td>
+<td style="background-color: #99FF99"><strong>10.4712 ns</strong></td>
+<td><strong>0.5108 ns</strong></td>
+<td><strong>0.0280 ns</strong></td>
+<td style="background-color: #99FF99"><strong>24 B</strong></td>
+</tr>
+<tr class="divider">
+<td colspan="5">&nbsp;</td>
+</tr>
+<tr class="divider">
+<td colspan="5"></td>
+</tr>
+<tr>
+<td style="text-align: left; background-color: #CCFFFF"><strong>Enum_GetName()_SecondOverload</strong></td>
+<td style="background-color: #99FF99"><strong>26.5703 ns</strong></td>
+<td><strong>4.8413 ns</strong></td>
+<td><strong>0.2654 ns</strong></td>
+<td style="background-color: #99FF99"><strong>24 B</strong></td>
+</tr>
+</tbody>
+</table>
+
+<div class="powered-by">Powered by <a href="https://github.com/mjebrahimi/BenchmarkDotNetVisualizer">https://github.com/mjebrahimi/BenchmarkDotNetVisualizer</a></div>
+</body>
+</html>
