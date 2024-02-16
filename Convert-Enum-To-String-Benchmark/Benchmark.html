@@ -23,14 +23,13 @@
 <h1>Converting Enum To A String Benchmarks</h1>
 <pre>
 <code>
-BenchmarkDotNet v0.13.12, Windows 10 (10.0.19045.3930/22H2/2022Update)
-Intel Core i3-9100 CPU 3.60GHz, 1 CPU, 4 logical and 4 physical cores
-.NET SDK 8.0.102
-  [Host]   : .NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
-  ShortRun : .NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
+BenchmarkDotNet v0.13.12, Windows 11 (10.0.22631.3085/23H2/2023Update/SunValley3)
+AMD Ryzen 7 5800H with Radeon Graphics, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 8.0.101
+  [Host]     : .NET 8.0.1 (8.0.123.58001), X64 RyuJIT AVX2
+  Job-SOFOWV : .NET 8.0.1 (8.0.123.58001), X64 RyuJIT AVX2
 
-Job=ShortRun  IterationCount=3  LaunchCount=1  
-WarmupCount=3
+RunStrategy=Throughput
 </code>
 </pre>
 <h2>Benchmark</h2>
@@ -41,50 +40,32 @@ WarmupCount=3
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left; background-color: #FFCCFF"><strong>NameOf()</strong></td>
-<td style="background-color: #99FF99"><strong>0.4186 ns</strong></td>
-<td><strong>0.0238 ns</strong></td>
-<td><strong>0.0013 ns</strong></td>
+<td style="text-align: left"><strong>nameof()</strong></td>
+<td style="background-color: #99FF99"><strong>0.0000 ns</strong></td>
+<td><strong>0.0000 ns</strong></td>
+<td><strong>0.0000 ns</strong></td>
 <td style="text-align: left; background-color: #99FF99"><strong>-</strong></td>
 </tr>
-<tr class="divider">
-<td colspan="5">&nbsp;</td>
-</tr>
-<tr class="divider">
-<td colspan="5"></td>
-</tr>
 <tr>
-<td style="text-align: left; background-color: #CCFFFF"><strong>Enum_GetName()_FirstOverload</strong></td>
-<td style="background-color: #99FF99"><strong>2.4360 ns</strong></td>
-<td><strong>0.5365 ns</strong></td>
-<td><strong>0.0294 ns</strong></td>
+<td style="text-align: left">Enum.GetName() (Generic)</td>
+<td style="background-color: #B9FF99">2.1463 ns</td>
+<td>0.0192 ns</td>
+<td>0.0180 ns</td>
 <td style="text-align: left; background-color: #99FF99"><strong>-</strong></td>
 </tr>
-<tr class="divider">
-<td colspan="5">&nbsp;</td>
-</tr>
-<tr class="divider">
-<td colspan="5"></td>
+<tr>
+<td style="text-align: left">ToString()</td>
+<td style="background-color: #FDFF99">10.7838 ns</td>
+<td>0.1595 ns</td>
+<td>0.1414 ns</td>
+<td style="background-color: #FF9999">24 B</td>
 </tr>
 <tr>
-<td style="text-align: left; background-color: #FFCCFF"><strong>ToString()</strong></td>
-<td style="background-color: #99FF99"><strong>10.4712 ns</strong></td>
-<td><strong>0.5108 ns</strong></td>
-<td><strong>0.0280 ns</strong></td>
-<td style="background-color: #99FF99"><strong>24 B</strong></td>
-</tr>
-<tr class="divider">
-<td colspan="5">&nbsp;</td>
-</tr>
-<tr class="divider">
-<td colspan="5"></td>
-</tr>
-<tr>
-<td style="text-align: left; background-color: #CCFFFF"><strong>Enum_GetName()_SecondOverload</strong></td>
-<td style="background-color: #99FF99"><strong>26.5703 ns</strong></td>
-<td><strong>4.8413 ns</strong></td>
-<td><strong>0.2654 ns</strong></td>
-<td style="background-color: #99FF99"><strong>24 B</strong></td>
+<td style="text-align: left">Enum.GetName() (Non Generic)</td>
+<td style="background-color: #FF9999">24.7104 ns</td>
+<td>0.1430 ns</td>
+<td>0.1338 ns</td>
+<td style="background-color: #FF9999">24 B</td>
 </tr>
 </tbody>
 </table>
