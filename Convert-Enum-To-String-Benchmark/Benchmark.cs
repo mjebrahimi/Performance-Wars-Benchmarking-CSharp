@@ -1,11 +1,11 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
+using EnumFastToStringGenerated;
 
 namespace Convert_Enum_To_String_Benchmark;
 
 #if RELEASE
-//[ShortRunJob]
-[SimpleJob(BenchmarkDotNet.Engines.RunStrategy.Throughput)] //more accurate results
+[SimpleJob(BenchmarkDotNet.Engines.RunStrategy.Throughput)]
 #endif
 [MemoryDiagnoser(displayGenColumns: false)]
 [Orderer(SummaryOrderPolicy.FastestToSlowest)]
@@ -36,6 +36,13 @@ public class Benchmark
     {
         return Enum.GetName(typeof(MyEnum), MyEnum.ALongAndVerboseEnumName)!;
     }
+
+    [Benchmark(Description = "Supernova.Enum.Generators.ToStringFast()")]
+    public string UsingSupernovaSourceGenerator()
+    {
+        return MyEnum2.ALongAndVerboseEnumName.ToStringFast();
+    }
+
 #pragma warning restore RCS1015 // Use nameof operator
 #pragma warning restore CA1822 // Mark members as static
 }
