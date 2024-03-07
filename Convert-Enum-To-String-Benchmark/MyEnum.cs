@@ -1,4 +1,5 @@
 ﻿using EnumFastToStringGenerated;
+using NetEscapades.EnumGenerators;
 
 namespace Convert_Enum_To_String_Benchmark;
 
@@ -15,4 +16,11 @@ public enum MyEnum
 public enum MyEnum2
 {
    ALongAndVerboseEnumName
+}
+
+
+[EnumExtensions]
+public enum MyEnum3
+{
+    ALongAndVerboseEnumName
 }
