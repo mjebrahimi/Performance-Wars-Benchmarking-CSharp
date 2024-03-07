@@ -2,6 +2,7 @@
 using BenchmarkDotNet.Order;
 using EnumFastToStringGenerated;
 using EnumsNET;
+using EnumStringValues;
 using EnumUtils;
 using FastEnumUtility;
 
@@ -71,6 +72,12 @@ public class Benchmark
     public string UsingNetEscapadesToStringFast()
     {
         return MyEnum3.ALongAndVerboseEnumName.ToStringFast();
+    }
+
+    [Benchmark(Description = "GetStringValue()"), BenchmarkCategory("EnumStringValues")]
+    public string UsingGetStringValue()
+    {
+        return MyEnum.ALongAndVerboseEnumName.GetStringValue();
     }
 
 #pragma warning restore RCS1015 // Use nameof operator
