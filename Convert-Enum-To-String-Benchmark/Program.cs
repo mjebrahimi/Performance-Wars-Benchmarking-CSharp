@@ -1,5 +1,9 @@
 ﻿using BenchmarkDotNetVisualizer;
 using Convert_Enum_To_String_Benchmark;
+using EnumStringValues;
+
+// add caching ability for EnumStringValues nuget
+EnumExtensions.Behaviour.UseCaching = true;
 
 var summary = BenchmarkAutoRunner.Run<Benchmark>();
 

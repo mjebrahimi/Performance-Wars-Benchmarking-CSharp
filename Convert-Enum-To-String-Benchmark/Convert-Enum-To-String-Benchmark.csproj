@@ -11,5 +11,11 @@
     <ItemGroup>
         <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
         <PackageReference Include="BenchmarkDotNetVisualizer" Version="1.0.5" />
+        <PackageReference Include="Enums.NET" Version="4.0.2" />
+        <PackageReference Include="EnumStringValues" Version="4.0.2" />
+        <PackageReference Include="EnumUtils" Version="2.1.6" />
+        <PackageReference Include="FastEnum" Version="1.8.0" />
+        <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta08" />
+        <PackageReference Include="Supernova.Enum.Generators" Version="1.0.15" />
     </ItemGroup>
 </Project>
