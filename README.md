@@ -24,7 +24,15 @@
 22.  [Enumerable NullOrEmpty Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Enumerable-NullOrEmpty-Benchmark)
 23.  [.NET Collections Benchmark](https://github.com/mjebrahimi/DotNet-Collections-Benchmark/)⭐️
 24.  [Converting Enum To String Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Convert-Enum-To-String-Benchmark)
+25.  [Array Copy Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Array-Copy-Benchmark)
+26.  [String Find First Duplicate Char Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/String-FirstDuplicateChar-Benchmark)
+27.  [Convert Number To Base62 String Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Convert-To-Base62-Benchmark)
 
+## Todo
+
+- [ ] [SearchValues](https://learn.microsoft.com/en-us/dotnet/api/system.buffers.searchvalues-1) vs Regex and other Alternatives
+- [ ] [UnsafeAccessor](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.unsafeaccessorattribute) vs Reflection-Based Access
+- [ ] [Source Generated Regex](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.unsafeaccessorattribute) vs Regular Regex (in various manner: static, instance, compiled, ...)
 
 ## Useful Resources
 https://github.com/martinstm/benchmarks
