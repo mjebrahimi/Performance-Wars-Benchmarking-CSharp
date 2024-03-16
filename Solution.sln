@@ -57,7 +57,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "String-FirstDuplicateChar-B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Convert-To-Base62-Benchmark", "Convert-To-Base62-Benchmark\Convert-To-Base62-Benchmark.csproj", "{90122325-A605-4898-9F78-93B30FD8C56C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Convert-Enum-To-String-Benchmark", "Convert-Enum-To-String-Benchmark\Convert-Enum-To-String-Benchmark.csproj", "{E9975C9F-F9BB-42A9-B309-204E52958A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Convert-Enum-To-String-Benchmark", "Convert-Enum-To-String-Benchmark\Convert-Enum-To-String-Benchmark.csproj", "{E9975C9F-F9BB-42A9-B309-204E52958A9F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "requested-optimizations", "requested-optimizations", "{8C53110A-A36D-4252-A468-C349BA34B8CD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToPureAbsoluteUrl-Benchmark", "requested-optimizations\ToPureAbsoluteUrl-Benchmark\ToPureAbsoluteUrl-Benchmark.csproj", "{898A6F9F-2372-44B3-80D9-5FAD7BD5B8D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -283,9 +287,20 @@ Global
 		{E9975C9F-F9BB-42A9-B309-204E52958A9F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E9975C9F-F9BB-42A9-B309-204E52958A9F}.Release|x64.ActiveCfg = Release|Any CPU
 		{E9975C9F-F9BB-42A9-B309-204E52958A9F}.Release|x64.Build.0 = Release|Any CPU
+		{898A6F9F-2372-44B3-80D9-5FAD7BD5B8D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{898A6F9F-2372-44B3-80D9-5FAD7BD5B8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{898A6F9F-2372-44B3-80D9-5FAD7BD5B8D0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{898A6F9F-2372-44B3-80D9-5FAD7BD5B8D0}.Debug|x64.Build.0 = Debug|Any CPU
+		{898A6F9F-2372-44B3-80D9-5FAD7BD5B8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{898A6F9F-2372-44B3-80D9-5FAD7BD5B8D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{898A6F9F-2372-44B3-80D9-5FAD7BD5B8D0}.Release|x64.ActiveCfg = Release|Any CPU
+		{898A6F9F-2372-44B3-80D9-5FAD7BD5B8D0}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{898A6F9F-2372-44B3-80D9-5FAD7BD5B8D0} = {8C53110A-A36D-4252-A468-C349BA34B8CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9971B2AF-C9D7-4426-88F5-427270973E86}
