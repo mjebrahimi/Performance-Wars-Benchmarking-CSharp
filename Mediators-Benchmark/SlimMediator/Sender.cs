@@ -7,7 +7,7 @@ public class Sender(IServiceProvider serviceProvider) : ISender
 {
     private static readonly ConcurrentDictionary<Type, Type> _requestHandlers = new();
 
-    public Task SendAsync<TRequest>(TRequest request, CancellationToken cancellationToken = default) where TRequest : class, IRequest
+    public Task Send<TRequest>(TRequest request, CancellationToken cancellationToken = default) where TRequest : class, IRequest
     {
         var handler = serviceProvider.GetRequiredService<IRequestHandler<TRequest>>();
         return handler.Handle(request, cancellationToken);

@@ -73,7 +73,7 @@ public class MediatorsBenchmark
     public Task SlimMediator_WithoutResponse()
     {
         var sender = serviceProvider.GetRequiredService<ISender>();
-        return sender.SendAsync(slimMediator_DeletteCommand, CancellationToken.None);
+        return sender.Send(slimMediator_DeletteCommand, CancellationToken.None);
     }
 
     [Benchmark(Description = "MediatR"), BenchmarkCategory("WithoutResponse")]
