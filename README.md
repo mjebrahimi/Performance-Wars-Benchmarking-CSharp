@@ -27,6 +27,7 @@
 25.  [Array Copy Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Array-Copy-Benchmark)
 26.  [String Find First Duplicate Char Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/String-FirstDuplicateChar-Benchmark)
 27.  [Convert Number To Base62 String Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Convert-To-Base62-Benchmark)
+28.  [MediatR vs Mediator vs SlimMediator Benchmark](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CSharp/tree/master/Mediators-Benchmark)
 
 ## Todo
 
