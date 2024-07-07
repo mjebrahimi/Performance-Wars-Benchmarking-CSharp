@@ -2,8 +2,8 @@
 
 ## Key Results
 
-- `CompiledExpression` and `ReflectionEmit` are similar and have raw performance as `new`.
-- `new T()` (Generic) is slower than `new` and performs similar to `Activator.CreateInstance`.
+- `CompiledExpression` (preferable) and `ReflectionEmit` are similar and have **raw performance as** `new`.
+- `new T()` **(Generic) is slower** than `new` and performs similar to `Activator.CreateInstance`.
 - `CompiledExpression` is preferable over `ReflectionEmit` because of its simplicity and readability. (Also on AOT platforms like Xamarin and Unity that don't support IL emitting at runtime, the lambda expression works because it is executed using an interpreter)
 
 ![Benchmark](Benchmark.png)

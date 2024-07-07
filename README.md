@@ -35,7 +35,7 @@ This repository contains a collection of C# benchmarks to compare the performanc
 
 ## TODO
 
-some ideas for future benchmarks:
+Some ideas for future benchmarks:
 
 - [ ] [SearchValues](https://learn.microsoft.com/en-us/dotnet/api/system.buffers.searchvalues-1) vs Regex and other Alternatives
 - [ ] [UnsafeAccessor](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.unsafeaccessorattribute) vs Reflection-Based Access
