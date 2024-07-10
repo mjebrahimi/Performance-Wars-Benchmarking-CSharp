@@ -69,6 +69,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "New-Instantiate-Benchmark",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AggressiveInlining-Benchmark", "AggressiveInlining-Benchmark\AggressiveInlining-Benchmark.csproj", "{47C58F65-EE26-4DFB-AB83-CCB6D02073C6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySqlBulkInsertExcel-Benchmark", "[requested-optimizations]\MySqlBulkInsertExcel-Benchmark\MySqlBulkInsertExcel-Benchmark.csproj", "{308DFA24-7E9E-40C3-8AA3-CC6961EE8E44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -325,12 +327,21 @@ Global
 		{47C58F65-EE26-4DFB-AB83-CCB6D02073C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{47C58F65-EE26-4DFB-AB83-CCB6D02073C6}.Release|x64.ActiveCfg = Release|Any CPU
 		{47C58F65-EE26-4DFB-AB83-CCB6D02073C6}.Release|x64.Build.0 = Release|Any CPU
+		{308DFA24-7E9E-40C3-8AA3-CC6961EE8E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{308DFA24-7E9E-40C3-8AA3-CC6961EE8E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{308DFA24-7E9E-40C3-8AA3-CC6961EE8E44}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{308DFA24-7E9E-40C3-8AA3-CC6961EE8E44}.Debug|x64.Build.0 = Debug|Any CPU
+		{308DFA24-7E9E-40C3-8AA3-CC6961EE8E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{308DFA24-7E9E-40C3-8AA3-CC6961EE8E44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{308DFA24-7E9E-40C3-8AA3-CC6961EE8E44}.Release|x64.ActiveCfg = Release|Any CPU
+		{308DFA24-7E9E-40C3-8AA3-CC6961EE8E44}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{898A6F9F-2372-44B3-80D9-5FAD7BD5B8D0} = {8C53110A-A36D-4252-A468-C349BA34B8CD}
+		{308DFA24-7E9E-40C3-8AA3-CC6961EE8E44} = {8C53110A-A36D-4252-A468-C349BA34B8CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9971B2AF-C9D7-4426-88F5-427270973E86}
