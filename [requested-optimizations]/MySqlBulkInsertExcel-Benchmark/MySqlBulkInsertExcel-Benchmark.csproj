@@ -11,7 +11,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BenchmarkDotNetVisualizer" Version="1.0.6" />
+		<PackageReference Include="BenchmarkDotNetVisualizer" Version="1.0.7" />
 		<PackageReference Include="Dapper.AOT" Version="1.0.31" />
 		<PackageReference Include="EFCore.BulkExtensions.MySql" Version="7.8.1" />
 		<PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />
@@ -19,6 +19,7 @@
 		<PackageReference Include="MySql.Data" Version="9.0.0" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
 		<PackageReference Include="RecordParser" Version="2.3.0" />
+		<PackageReference Include="Testcontainers.MySql" Version="3.9.0" />
 	</ItemGroup>
 
 	<ItemGroup>

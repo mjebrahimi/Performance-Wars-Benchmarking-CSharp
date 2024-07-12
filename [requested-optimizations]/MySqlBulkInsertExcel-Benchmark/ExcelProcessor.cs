@@ -229,6 +229,52 @@ public static class ExcelProcessor
         }
     }
 
+    public static async Task RunMySQLConnectorBulkLoaderMultiThreadedMemoryOptimizedAsync(Stream stream, string excelTagName, EfDbContext dbContext)
+    {
+        try
+        {
+            var chunks = await stream.ChunkDualAsync(100_000);
+
+            await Parallel.ForEachAsync(chunks, async (chunk, __) =>
+            {
+                await using var connection = dbContext.Database.CreateNewConnection();
+                await using var _ = await connection.DisableChecksAsync();
+                await connection.BulkInsertAsync(chunk.Stream1, "users", ["id"], ["created_at = NOW(6)"]);
+                await connection.BulkInsertAsync(chunk.Stream2, "tags", ["user_id"], [$"name = '{excelTagName}'"]);
+            });
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Excel operation failed: {ex.Message}", ex);
+        }
+    }
+
+    public static async Task RunMySQLConnectorBulkLoaderMultiThreadedStreamOptimizedAsync(Stream stream, string excelTagName, EfDbContext dbContext)
+    {
+        try
+        {
+            var streamChunks = await stream.ChunkAsync(100_000);
+
+            await Parallel.ForEachAsync(streamChunks, async (streamChunk, __) =>
+            {
+                using (streamChunk)
+                {
+                    var stream = new NonDisposableStream(streamChunk);
+                    await using var connection = dbContext.Database.CreateNewConnection();
+                    await using var _ = await connection.DisableChecksAsync();
+                    await connection.BulkInsertAsync(stream, "users", ["id"], ["created_at = NOW(6)"]);
+                    stream.Position = 0;
+                    await connection.BulkInsertAsync(stream, "tags", ["user_id"], [$"name = '{excelTagName}'"]);
+                }
+
+            });
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Excel operation failed: {ex.Message}", ex);
+        }
+    }
+
     public static async Task RunMySQLConnectorBulkLoaderMultiThreaded2xAsync(Stream stream, string excelTagName, EfDbContext dbContext)
     {
         try
@@ -280,6 +326,51 @@ public static class ExcelProcessor
                 await using var _ = await connection.DisableChecksAsync();
                 await connection.BulkInsertAsync(usersChunkStream, "users", ["id"], ["created_at = NOW(6)"]);
                 await connection.BulkInsertAsync(tagsChunkStream, "tags", ["user_id"], [$"name = '{excelTagName}'"]);
+            });
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Excel operation failed: {ex.Message}", ex);
+        }
+    }
+
+    public static async Task RunMySQLBulkLoaderMultiThreadedMemoryOptimizedAsync(Stream stream, string excelTagName, EfDbContext dbContext)
+    {
+        try
+        {
+            var chunks = await stream.ChunkDualAsync(100_000);
+
+            await Parallel.ForEachAsync(chunks, async (chunk, __) =>
+            {
+                await using var connection = dbContext.Database.CreateNewMySqlDataConnection();
+                await using var _ = await connection.DisableChecksAsync();
+                await connection.BulkInsertAsync(chunk.Stream1, "users", ["id"], ["created_at = NOW(6)"]);
+                await connection.BulkInsertAsync(chunk.Stream2, "tags", ["user_id"], [$"name = '{excelTagName}'"]);
+            });
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Excel operation failed: {ex.Message}", ex);
+        }
+    }
+
+    public static async Task RunMySQLBulkLoaderMultiThreadedStreamOptimizedAsync(Stream stream, string excelTagName, EfDbContext dbContext)
+    {
+        try
+        {
+            var streamChunks = await stream.ChunkAsync(100_000);
+
+            await Parallel.ForEachAsync(streamChunks, async (streamChunk, __) =>
+            {
+                using (streamChunk)
+                {
+                    var stream = new NonDisposableStream(streamChunk);
+                    await using var connection = dbContext.Database.CreateNewMySqlDataConnection();
+                    await using var _ = await connection.DisableChecksAsync();
+                    await connection.BulkInsertAsync(stream, "users", ["id"], ["created_at = NOW(6)"]);
+                    stream.Position = 0;
+                    await connection.BulkInsertAsync(stream, "tags", ["user_id"], [$"name = '{excelTagName}'"]);
+                }
             });
         }
         catch (Exception ex)

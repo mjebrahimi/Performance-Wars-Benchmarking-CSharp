@@ -60,6 +60,47 @@ public static class Utils
         return streams;
     }
 
+    public static async Task<List<(MemoryStream Stream1, MemoryStream Stream2)>> ChunkDualAsync(this Stream stream, int maxLines)
+    {
+        var utf8Bytes = await stream.ReadAllBytesAsync();
+        var streams = new List<(MemoryStream, MemoryStream)>();
+
+        var offset = 0;
+        var lineCount = 0;
+        for (int position = 0; position < utf8Bytes.Length; position++)
+        {
+            if (position + 1 == utf8Bytes.Length) //End of file
+            {
+                break;
+            }
+
+            if (lineCount == maxLines)
+            {
+                var stream1 = new MemoryStream(utf8Bytes, offset, position - offset);
+                var stream2 = new MemoryStream(utf8Bytes, offset, position - offset);
+                streams.Add((stream1, stream2));
+                offset = position;
+                lineCount = 0;
+            }
+
+            if (utf8Bytes[position] == 13 && utf8Bytes[position + 1] == 10) //It's a new "\r\n"
+            {
+                lineCount++;
+                position++;
+            }
+        }
+
+        if (utf8Bytes.Length != offset)
+        {
+            var stream1 = new MemoryStream(utf8Bytes, offset, utf8Bytes.Length - offset);
+            var stream2 = new MemoryStream(utf8Bytes, offset, utf8Bytes.Length - offset);
+
+            streams.Add((stream1, stream2));
+        }
+
+        return streams;
+    }
+
     public static List<long> ReadEachLineAsLong(this Stream stream)
     {
         var records = new List<long>();
