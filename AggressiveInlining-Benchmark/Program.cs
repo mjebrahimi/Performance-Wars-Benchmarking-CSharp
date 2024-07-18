@@ -1,77 +1,30 @@
-﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Order;
-using BenchmarkDotNetVisualizer;
-using Models;
+﻿using BenchmarkDotNetVisualizer;
+using System.ComponentModel;
+using System.Reflection;
 
-var summary = BenchmarkAutoRunner.Run<Benchmark>();
+var summaries = BenchmarkAutoRunner.SwitcherRun(typeof(Program).Assembly);
 
-await summary.SaveAsImageAsync(
-    path: DirectoryHelper.GetPathRelativeToProjectDirectory("Benchmark.png"),
+Dictionary<Type, string> dictionary = new()
+{
+    [typeof(StaticBenchmark)] = "Benchmark-static.png",
+    [typeof(InstanceBenchmark)] = "Benchmark-instance.png",
+};
+
+foreach (var summary in summaries)
+{
+    var benchmarkType = summary.BenchmarksCases[0].Descriptor.Type;
+    var title = benchmarkType.GetCustomAttribute<DisplayNameAttribute>()!.DisplayName;
+    var fileName = dictionary[benchmarkType];
+
+    await summary.SaveAsImageAsync(
+    path: DirectoryHelper.GetPathRelativeToProjectDirectory(fileName),
     options: new ReportHtmlOptions
     {
-        Title = "AggressiveInlining Benchmark",
+        Title = title,
         GroupByColumns = ["Categories"],
         SpectrumColumns = ["Mean", "Allocated"],
         SortByColumns = ["Mean", "Allocated"],
-        HighlightGroups = true,
     });
+}
 
 Console.ReadLine();
-
-#if RELEASE
-[SimpleJob(BenchmarkDotNet.Engines.RunStrategy.Throughput)]
-#endif
-[CategoriesColumn]
-[MemoryDiagnoser(displayGenColumns: false)]
-[Orderer(SummaryOrderPolicy.FastestToSlowest, MethodOrderPolicy.Declared)]
-[GroupBenchmarksBy(BenchmarkDotNet.Configs.BenchmarkLogicalGroupRule.ByCategory)]
-public class Benchmark
-{
-    public static readonly MyStructDto myStructDto = new MyStructDto
-    {
-        Int = 100,
-        String = "String",
-        Boolean = true,
-        Long = 100,
-        Double = 100.0,
-        DateTime = DateTime.Now,
-        Enum = MyEnum.Enum1,
-        SubStruct = new MySubStructDto
-        {
-            Int = 100,
-            String = "String"
-        }
-    };
-
-    public static readonly MyClassDto myClassDto = new MyClassDto
-    {
-        Int = 100,
-        String = "String",
-        Boolean = true,
-        Long = 100,
-        Double = 100.0,
-        DateTime = DateTime.Now,
-        Enum = MyEnum.Enum1,
-        SubClass = new MySubClassDto
-        {
-            Int = 100,
-            String = "String"
-        }
-    };
-
-    #region Class
-    [Benchmark(Description = "MapAggressiveInlining"), BenchmarkCategory("Class")]
-    public MyClass MapAggressiveInlining_Class() => Mapper.MapAggressiveInlining(myClassDto);
-
-    [Benchmark(Description = "Map"), BenchmarkCategory("Class")]
-    public MyClass Map_Class() => Mapper.Map(myClassDto);
-    #endregion
-
-    #region Struct
-    [Benchmark(Description = "MapAggressiveInlining"), BenchmarkCategory("Struct")]
-    public MyStruct MapAggressiveInlining_Struct() => Mapper.MapAggressiveInlining(myStructDto);
-
-    [Benchmark(Description = "Map"), BenchmarkCategory("Struct")]
-    public MyStruct Map_Struct() => Mapper.Map(myStructDto);
-    #endregion
-}
