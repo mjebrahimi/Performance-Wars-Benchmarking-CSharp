@@ -55,4 +55,6 @@ Create an [issue](https://github.com/mjebrahimi/Performance-Wars-Benchmarking-CS
 
 ## Useful Resources
 
-https://github.com/martinstm/benchmarks
+- https://github.com/martinstm/benchmarks
+- https://github.com/MarkCiliaVincenti/AsyncKeyedLockBenchmarks
+- https://github.com/MarkCiliaVincenti/AsyncNonKeyedLockBenchmarks
