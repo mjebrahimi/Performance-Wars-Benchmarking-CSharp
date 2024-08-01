@@ -1,12 +1,76 @@
 ﻿using Dapper;
 using EFCore.BulkExtensions;
 using Microsoft.Extensions.DependencyInjection;
+using RecordParser.Builders.Reader;
 using RecordParser.Extensions;
 
 namespace MySqlBulkInsertExcel_Benchmark;
 
 public static class ExcelProcessor
 {
+    public static async Task RunOriginalWithSpanAsync(Stream stream, string excelTagName, EfDbContext dbContext)
+    {
+        try
+        {
+            using StreamReader textReader = new(stream, leaveOpen: true);
+
+            var parser = new VariableLengthReaderBuilder<long>()
+               .Map(x => x, 0)
+               .Build(",");
+
+            var readOptions = new VariableLengthReaderOptions
+            {
+                HasHeader = false,
+                ContainsQuotedFields = false,
+                ParallelismOptions = new()
+                {
+                    Enabled = true,
+                    EnsureOriginalOrdering = true,
+                    MaxDegreeOfParallelism = 4
+                }
+            };
+
+            var records = textReader.ReadRecords(parser, readOptions);
+
+            var batchSize = 100000;
+            var userBatch = new List<User>(100000);
+            var tagBatch = new List<Tag>(100000);
+
+            foreach (var userId in records)
+            {
+                userBatch.Add(new User { Id = userId, CreatedAt = DateTime.Now });
+                tagBatch.Add(new Tag { UserId = userId, Name = excelTagName });
+                //Console.WriteLine($"{userId} added");
+
+                if (userBatch.Count >= batchSize)
+                {
+                    await dbContext.BulkInsertAsync(userBatch);
+                    userBatch.Clear();
+                }
+
+                if (tagBatch.Count >= batchSize)
+                {
+                    await dbContext.BulkInsertAsync(tagBatch);
+                    tagBatch.Clear();
+                }
+            }
+
+            if (userBatch.Any())
+            {
+                await dbContext.BulkInsertAsync(userBatch);
+            }
+
+            if (tagBatch.Any())
+            {
+                await dbContext.BulkInsertAsync(tagBatch);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Excel operation failed: {ex.Message}", ex);
+        }
+    }
+
     public static async Task RunOriginalAsync(Stream stream, string excelTagName, EfDbContext dbContext)
     {
         try
