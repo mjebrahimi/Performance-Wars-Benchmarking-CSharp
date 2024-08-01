@@ -51,6 +51,9 @@ public class Benchmark()
     }
 
     [Benchmark]
+    public Task OriginalWithSpan() => ExcelProcessor.RunOriginalWithSpanAsync(GetStream(), "tag-name", dbContext);
+
+    [Benchmark]
     public Task Original() => ExcelProcessor.RunOriginalAsync(GetStream(), "tag-name", dbContext);
 
     [Benchmark]
