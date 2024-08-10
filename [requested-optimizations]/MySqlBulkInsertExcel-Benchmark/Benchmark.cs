@@ -51,10 +51,10 @@ public class Benchmark()
     }
 
     [Benchmark]
-    public Task OriginalWithSpan() => ExcelProcessor.RunOriginalWithSpanAsync(GetStream(), "tag-name", dbContext);
+    public Task Original() => ExcelProcessor.RunOriginalAsync(GetStream(), "tag-name", dbContext);
 
     [Benchmark]
-    public Task Original() => ExcelProcessor.RunOriginalAsync(GetStream(), "tag-name", dbContext);
+    public Task OriginalWithSpan() => ExcelProcessor.RunOriginalWithSpanAsync(GetStream(), "tag-name", dbContext);
 
     [Benchmark]
     public Task OriginalOptimizedMultiThreaded() => ExcelProcessor.RunOriginalOptimizedMultiThreadedAsync(GetStream(), "tag-name", serviceProvider);

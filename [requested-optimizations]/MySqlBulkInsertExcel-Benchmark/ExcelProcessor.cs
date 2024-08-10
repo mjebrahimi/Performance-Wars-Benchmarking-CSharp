@@ -8,20 +8,18 @@ namespace MySqlBulkInsertExcel_Benchmark;
 
 public static class ExcelProcessor
 {
-    public static async Task RunOriginalWithSpanAsync(Stream stream, string excelTagName, EfDbContext dbContext)
+    public static async Task RunOriginalAsync(Stream stream, string excelTagName, EfDbContext dbContext)
     {
         try
         {
             using StreamReader textReader = new(stream, leaveOpen: true);
 
-            var parser = new VariableLengthReaderBuilder<long>()
-               .Map(x => x, 0)
-               .Build(",");
-
-            var readOptions = new VariableLengthReaderOptions
+            var readOptions = new VariableLengthReaderRawOptions
             {
                 HasHeader = false,
                 ContainsQuotedFields = false,
+                ColumnCount = 1,
+                Separator = ",",
                 ParallelismOptions = new()
                 {
                     Enabled = true,
@@ -30,7 +28,11 @@ public static class ExcelProcessor
                 }
             };
 
-            var records = textReader.ReadRecords(parser, readOptions);
+            var records = textReader.ReadRecordsRaw(readOptions, getField =>
+            {
+                var record = long.Parse(getField(0));
+                return record;
+            });
 
             var batchSize = 100000;
             var userBatch = new List<User>(100000);
@@ -71,18 +73,20 @@ public static class ExcelProcessor
         }
     }
 
-    public static async Task RunOriginalAsync(Stream stream, string excelTagName, EfDbContext dbContext)
+    public static async Task RunOriginalWithSpanAsync(Stream stream, string excelTagName, EfDbContext dbContext)
     {
         try
         {
             using StreamReader textReader = new(stream, leaveOpen: true);
 
-            var readOptions = new VariableLengthReaderRawOptions
+            var parser = new VariableLengthReaderBuilder<long>()
+               .Map(x => x, 0)
+               .Build(",");
+
+            var readOptions = new VariableLengthReaderOptions
             {
                 HasHeader = false,
                 ContainsQuotedFields = false,
-                ColumnCount = 1,
-                Separator = ",",
                 ParallelismOptions = new()
                 {
                     Enabled = true,
@@ -91,11 +95,7 @@ public static class ExcelProcessor
                 }
             };
 
-            var records = textReader.ReadRecordsRaw(readOptions, getField =>
-            {
-                var record = long.Parse(getField(0));
-                return record;
-            });
+            var records = textReader.ReadRecords(parser, readOptions);
 
             var batchSize = 100000;
             var userBatch = new List<User>(100000);
