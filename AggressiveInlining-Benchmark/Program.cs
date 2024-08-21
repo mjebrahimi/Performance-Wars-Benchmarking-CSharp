@@ -6,8 +6,9 @@ var summaries = BenchmarkAutoRunner.SwitcherRun(typeof(Program).Assembly);
 
 Dictionary<Type, string> dictionary = new()
 {
-    [typeof(StaticBenchmark)] = "Benchmark-static.png",
-    [typeof(InstanceBenchmark)] = "Benchmark-instance.png",
+    [typeof(StaticBenchmark)] = "Benchmark-Static.png",
+    [typeof(InstanceBenchmark)] = "Benchmark-Instance.png",
+    [typeof(UnsafeAccessorBenchmark)] = "Benchmark-UnsafeAccessor.png",
 };
 
 foreach (var summary in summaries)
